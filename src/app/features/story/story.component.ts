@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 
           <div class="lg:col-span-7 bg-dark-900 border border-primary-400/10 p-8 sm:p-12 rounded-[2.5rem]">
             <p class="text-cream/80 text-base leading-relaxed mb-6">Establishing a roastery in Malé came with its own unique challenges—mastering the delicate balance of heat and airflow amidst the island humidity. Through countless trials, we perfected a roasting profile that honors both the bean's origin and our tropical home.</p>
-            <p class="text-cream/80 text-base leading-relaxed italic border-l-2 border-primary-400/30 pl-6">Today, Island Roaster is more than a brand; it's a commitment to our community and heritage. Every batch is roasted to order, ensuring that the cup you brew captures the essence of uncompromising quality.</p>
+            <p class="text-cream/80 text-base leading-relaxed italic border-l-2 border-primary-400/30 pl-6">Today, Roaster is more than a brand; it's a commitment to our community and heritage. Every batch is roasted to order, ensuring that the cup you brew captures the essence of uncompromising quality.</p>
           </div>
         </div>
 

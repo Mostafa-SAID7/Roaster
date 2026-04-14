@@ -33,7 +33,7 @@ import { BackgroundComponent } from './shared/background/background.component';
   styles: []
 })
 export class AppComponent implements OnInit {
-  title = 'Island Roaster';
+  title = 'Roaster';
 
   constructor(
     private titleService: Title,
@@ -47,12 +47,12 @@ export class AppComponent implements OnInit {
 
   private setupSEO(): void {
     // Set page title
-    this.titleService.setTitle('Island Roaster - Premium Maldivian Coffee | Specialty Coffee Roasted in Malé');
+    this.titleService.setTitle('Roaster - Premium Maldivian Coffee | Specialty Coffee Roasted in Malé');
 
     // Set meta tags
     this.metaService.updateTag({
       name: 'description',
-      content: 'Island Roaster - Premium specialty coffee roasted in the Maldives. Sustainably sourced, expertly roasted, delivered fresh to your island. Experience the finest Maldivian coffee.'
+      content: 'Roaster - Premium specialty coffee roasted in the Maldives. Sustainably sourced, expertly roasted, delivered fresh to your island. Experience the finest Maldivian coffee.'
     });
 
     this.metaService.updateTag({
@@ -60,61 +60,39 @@ export class AppComponent implements OnInit {
       content: 'specialty coffee, Maldives coffee, premium coffee, roasted coffee, sustainable coffee, Malé roastery, coffee delivery, single origin coffee'
     });
 
-    this.metaService.updateTag({
-      name: 'author',
-      content: 'Island Roaster'
-    });
+    // Open Graph / Facebook
+    this.metaService.updateTag({ property: 'og:type', content: 'website' });
+    this.metaService.updateTag({ property: 'og:url', content: 'https://roaster7.netlify.app/' });
+    this.metaService.updateTag({ property: 'og:title', content: 'Roaster - Premium Maldivian Coffee' });
+    this.metaService.updateTag({ property: 'og:description', content: 'Specialty coffee roasted in the Maldives. Sustainably sourced, expertly roasted, delivered fresh.' });
+    this.metaService.updateTag({ property: 'og:image', content: 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=1200&auto=format&fit=crop' });
 
-    this.metaService.updateTag({
-      name: 'robots',
-      content: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
-    });
+    // Twitter
+    this.metaService.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.metaService.updateTag({ name: 'twitter:title', content: 'Roaster - Premium Maldivian Coffee' });
+    this.metaService.updateTag({ name: 'twitter:image', content: 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=1200&auto=format&fit=crop' });
 
-    // Open Graph tags
-    this.metaService.updateTag({
-      property: 'og:type',
-      content: 'website'
-    });
+    // Canonical Link
+    this.updateCanonicalLink('https://roaster7.netlify.app/');
+  }
 
-    this.metaService.updateTag({
-      property: 'og:title',
-      content: 'Island Roaster - Premium Maldivian Coffee'
-    });
-
-    this.metaService.updateTag({
-      property: 'og:description',
-      content: 'Specialty coffee roasted in the Maldives. Sustainably sourced, expertly roasted, delivered fresh.'
-    });
-
-    this.metaService.updateTag({
-      property: 'og:image',
-      content: 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=1200&auto=format&fit=crop'
-    });
-
-    // Twitter tags
-    this.metaService.updateTag({
-      name: 'twitter:card',
-      content: 'summary_large_image'
-    });
-
-    this.metaService.updateTag({
-      name: 'twitter:title',
-      content: 'Island Roaster - Premium Maldivian Coffee'
-    });
-
-    this.metaService.updateTag({
-      name: 'twitter:description',
-      content: 'Specialty coffee roasted in the Maldives. Sustainably sourced, expertly roasted, delivered fresh.'
-    });
-
-    this.metaService.updateTag({
-      name: 'twitter:image',
-      content: 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=1200&auto=format&fit=crop'
-    });
+  private updateCanonicalLink(url: string): void {
+    let link: HTMLLinkElement | null = document.querySelector('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement('link');
+      link.setAttribute('rel', 'canonical');
+      document.head.appendChild(link);
+    }
+    link.setAttribute('href', url);
   }
 
   private setupScrollReveal(): void {
-    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+    const observerOptions = { 
+      root: null, 
+      rootMargin: '0px', 
+      threshold: 0.1 
+    };
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -124,9 +102,10 @@ export class AppComponent implements OnInit {
       });
     }, observerOptions);
 
-    // Observe all reveal elements
+    // Dynamic observation with a small delay to ensure all components are rendered
     setTimeout(() => {
-      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-    }, 100);
+      const elements = document.querySelectorAll('.reveal');
+      elements.forEach((el) => observer.observe(el));
+    }, 500);
   }
 }

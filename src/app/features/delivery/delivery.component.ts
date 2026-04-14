@@ -10,7 +10,7 @@ import { SelectorComponent, SelectorOption } from '../../shared/selector/selecto
   imports: [CommonModule, SelectorComponent],
   template: `
     <section id="delivery" class="mt-32 max-w-4xl mx-auto reveal">
-      <div class="bg-dark-900 rounded-[3rem] border border-primary-400/10 shadow-2xl p-8 sm:p-12 lg:p-20 text-center relative overflow-hidden">
+      <div class="bg-dark-900 rounded-[3rem] border border-primary-400/10 shadow-2xl p-8 sm:p-12 lg:p-20 text-center relative z-10">
         <!-- Floating Accent Glow -->
         <div class="absolute -top-24 -left-24 w-64 h-64 bg-primary-400/5 blur-[100px] rounded-full"></div>
         <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-primary-400/5 blur-[100px] rounded-full"></div>

@@ -19,10 +19,12 @@ jobs:
         cache: 'npm'
     
     - name: Install dependencies
-      run: npm ci
+      run: npm install
     
     - name: Build application
       run: npm run build
+      env:
+        NODE_OPTIONS: "--max-old-space-size=4096"
     
     - name: Deployment notification
       run: echo "✅ Build successful! Netlify will auto-deploy from main branch"

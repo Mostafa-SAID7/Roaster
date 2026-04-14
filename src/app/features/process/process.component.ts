@@ -22,7 +22,10 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
           <span class="w-8 h-px bg-primary-400/50 block"></span> Origin Selection
         </h3>
         <div class="relative w-full h-[300px] sm:h-[400px] bg-dark-900 rounded-2xl border border-dark-800 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2000&auto=format&fit=crop" alt="World Map Abstract" class="w-full h-full object-cover opacity-20 grayscale">
+          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop" 
+               alt="World Map Abstract" 
+               loading="lazy"
+               class="w-full h-full object-cover opacity-20 grayscale">
           
           <!-- Interactive Origin Points -->
           <div *ngFor="let origin of origins" 
@@ -79,6 +82,7 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
         <div class="relative h-[400px] rounded-2xl overflow-hidden bg-dark-900 flex items-center justify-center border border-dark-800 shadow-inner group">
           <img [src]="coffeeImage" 
                alt="Roasted Coffee Beans" 
+               loading="lazy"
                class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out" 
                [style.filter]="currentRoast?.filter"
                [style.transform]="getRoastTransform()">

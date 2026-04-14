@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://roaster7.netlify.app/sitemap.xml
