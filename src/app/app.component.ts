@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { HeroComponent } from './features/hero/hero.component';
 import { StoryComponent } from './features/story/story.component';
 import { ProcessComponent } from './features/process/process.component';
 import { DeliveryComponent } from './features/delivery/delivery.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { VantaBackgroundComponent } from './shared/vanta-background/vanta-background.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet,
+    VantaBackgroundComponent,
     HeroComponent,
     StoryComponent,
     ProcessComponent,
@@ -21,7 +21,8 @@ import { FooterComponent } from './shared/footer/footer.component';
     FooterComponent
   ],
   template: `
-    <div class="max-w-[1600px] mx-auto p-2 sm:p-4 lg:p-6 overflow-hidden">
+    <app-vanta-background></app-vanta-background>
+    <div class="relative z-0 max-w-[1600px] mx-auto p-2 sm:p-4 lg:p-6 overflow-hidden">
       <app-hero></app-hero>
       <app-story></app-story>
       <app-process></app-process>
