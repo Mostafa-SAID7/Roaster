@@ -15,7 +15,7 @@ import { IslandSelectorComponent, IslandOption } from '../../shared/island-selec
           <path d="M18 18.5a1.5 1.5 0 01-1.5-1.5 1.5 1.5 0 011.5-1.5 1.5 1.5 0 011.5 1.5 1.5 1.5 0 01-1.5 1.5m1.5-9l1.96 2.5H17V9.5m-11 9A1.5 1.5 0 015.5 17 1.5 1.5 0 017 15.5 1.5 1.5 0 015.5 14m6.5 4.5H8V9.5h3.5M4 6.5H2v11a1.5 1.5 0 001.5 1.5H6m14-12H6.5v3h11.96L22 9.5z"/>
         </svg>
       </div>
-      <h3 class="text-3xl font-playfair italic text-cream mb-4 tracking-tight animate-slideInUp font-macondo">Freshly Packed & Delivered</h3>
+      <h3 class="text-3xl font-playfair italic text-cream mb-4 tracking-tight animate-slideInUp">Freshly Packed & Delivered</h3>
       <p class="text-cream/70 text-base mb-8 max-w-lg mx-auto animate-slideInUp" style="animation-delay: 100ms">Select your island below to check delivery times and logistics directly from our Malé roastery.</p>
 
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto animate-slideInUp" style="animation-delay: 200ms">

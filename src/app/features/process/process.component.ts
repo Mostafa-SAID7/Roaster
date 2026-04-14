@@ -36,7 +36,7 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
           <!-- Origin Info Panel -->
           <div *ngIf="selectedOrigin" class="absolute bottom-6 left-6 right-6 sm:right-auto sm:w-80 bg-dark-900/90 backdrop-blur-md border border-primary-400/30 p-5 rounded-xl z-10 animate-fadeIn">
             <span class="text-xs font-oswald uppercase tracking-widest text-primary-400 block mb-1">{{ selectedOrigin.country }}</span>
-            <h4 class="text-xl font-playfair text-cream mb-2 tracking-tight font-macondo">{{ selectedOrigin.bean }}</h4>
+            <h4 class="text-xl font-playfair text-cream mb-2 tracking-tight">{{ selectedOrigin.bean }}</h4>
             <p class="text-cream/70 text-sm mb-4">{{ selectedOrigin.notes }}</p>
             <div class="text-primary-400 font-oswald tracking-widest font-medium">{{ selectedOrigin.price }} MVR / 250g</div>
           </div>
@@ -61,7 +61,7 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
 
           <div class="bg-dark-900 border border-dark-800 p-6 rounded-xl">
             <span class="text-xs font-oswald uppercase tracking-[0.2em] text-primary-400 block mb-2">Tasting Notes</span>
-            <h4 class="text-2xl font-playfair text-cream mb-2 tracking-tight font-macondo">{{ currentRoast?.title }}</h4>
+            <h4 class="text-2xl font-playfair text-cream mb-2 tracking-tight">{{ currentRoast?.title }}</h4>
             <p class="text-cream/70 text-sm italic">{{ currentRoast?.description }}</p>
           </div>
         </div>
@@ -94,15 +94,15 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
           <div *ngIf="currentBrewMethod" class="grid grid-cols-1 sm:grid-cols-3 gap-6 animate-fadeIn">
             <div class="bg-dark-900 p-6 rounded-xl border border-dark-800 text-center">
               <span class="block text-xs font-oswald uppercase tracking-widest text-primary-400 mb-1">Grind Size</span>
-              <strong class="text-cream font-playfair text-xl font-macondo">{{ currentBrewMethod.grindSize }}</strong>
+              <strong class="text-cream font-playfair text-xl">{{ currentBrewMethod.grindSize }}</strong>
             </div>
             <div class="bg-dark-900 p-6 rounded-xl border border-dark-800 text-center">
               <span class="block text-xs font-oswald uppercase tracking-widest text-primary-400 mb-1">Ratio</span>
-              <strong class="text-cream font-playfair text-xl font-macondo">{{ currentBrewMethod.ratio }}</strong>
+              <strong class="text-cream font-playfair text-xl">{{ currentBrewMethod.ratio }}</strong>
             </div>
             <div class="bg-dark-900 p-6 rounded-xl border border-dark-800 text-center">
               <span class="block text-xs font-oswald uppercase tracking-widest text-primary-400 mb-1">Timing</span>
-              <strong class="text-cream font-playfair text-xl font-macondo">{{ currentBrewMethod.timing }}</strong>
+              <strong class="text-cream font-playfair text-xl">{{ currentBrewMethod.timing }}</strong>
             </div>
           </div>
         </div>
