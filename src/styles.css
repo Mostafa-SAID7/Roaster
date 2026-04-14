@@ -40,7 +40,7 @@
 /* Base Styles */
 @layer base {
   body {
-    @apply bg-dark-900 text-cream font-playfair antialiased;
+    @apply bg-dark-900 text-cream font-macondo antialiased;
     position: relative;
   }
 
@@ -50,7 +50,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-oswald uppercase tracking-tight;
+    @apply font-macondo uppercase tracking-tight;
   }
 
   a {
