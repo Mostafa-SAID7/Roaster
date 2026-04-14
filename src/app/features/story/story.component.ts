@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
     <section id="story" class="mt-32 px-4 sm:px-6 relative">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center max-w-7xl mx-auto">
         <div class="lg:col-span-5 reveal">
-          <h2 class="text-4xl sm:text-5xl font-playfair italic text-primary-400 mb-6 tracking-tight">The Malé Origins</h2>
+          <h2 class="text-4xl sm:text-5xl font-playfair italic text-primary-400 mb-6 tracking-tight font-macondo">The Malé Origins</h2>
           <h3 class="text-3xl font-oswald uppercase tracking-tight text-cream mb-8">Grounded in Place</h3>
           <p class="text-cream/70 text-lg leading-relaxed mb-6 font-medium">Born from a desire to bring true specialty coffee to the heart of the Maldives. We recognized a gap between imported commercial beans and the rich, nuanced flavors of freshly roasted coffee.</p>
         </div>

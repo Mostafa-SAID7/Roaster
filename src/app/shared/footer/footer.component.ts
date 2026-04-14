@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
           </div>
           <span class="text-cream text-xl font-oswald uppercase tracking-widest font-medium group-hover:text-primary-400 transition-colors duration-300">Island Roaster</span>
         </div>
-        <p class="text-sm text-cream/60 max-w-xs italic">A commitment to roasting excellence in the Maldives. Sustainable, fresh, unparalleled.</p>
+        <p class="text-sm text-cream/60 max-w-xs italic font-macondo">A commitment to roasting excellence in the Maldives. Sustainable, fresh, unparalleled.</p>
       </div>
 
       <!-- Links Section -->
