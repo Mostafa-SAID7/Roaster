@@ -65,7 +65,7 @@ import { CommonModule } from '@angular/common';
         <!-- Left: Text -->
         <div class="w-full lg:w-1/2 flex flex-col justify-center px-4 sm:px-8 lg:px-16 xl:px-20 py-8 sm:py-12 lg:py-0">
           <span class="reveal reveal-delay-1 inline-block text-primary-400 font-playfair italic text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mb-4 sm:mb-6 animate-slideInLeft">The Spirit of the Island</span>
-          <h1 class="reveal reveal-delay-2 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-cream font-oswald uppercase tracking-tight leading-[1.1] mb-6 sm:mb-8 max-w-2xl animate-slideInLeft delay-200">A Commitment to Roasting Excellence in the Maldives.</h1>
+          <h1 class="reveal reveal-delay-2 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-cream font-exo2 uppercase tracking-tight leading-[1.1] mb-6 sm:mb-8 max-w-2xl animate-slideInLeft delay-200">A Commitment to Roasting Excellence in the Maldives.</h1>
           <a href="#shop" class="reveal reveal-delay-3 w-max btn-primary group animate-slideInLeft hover:scale-105 text-sm sm:text-base delay-400">
             <span class="font-oswald uppercase tracking-widest font-semibold">Taste The Craft</span>
             <span class="w-10 h-10 sm:w-12 sm:h-12 bg-dark-900 rounded-full flex items-center justify-center group-hover:bg-dark-800 transition-all duration-300 group-hover:translate-x-1">
