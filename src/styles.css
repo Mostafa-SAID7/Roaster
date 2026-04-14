@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1614;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4a373;
+  border-radius: 6px;
+  border: 2px solid #1a1614;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e9edc9;
+  box-shadow: 0 0 10px rgba(212, 163, 115, 0.5);
+}
+
+/* Firefox Scrollbar */
+* {
+  scrollbar-color: #d4a373 #1a1614;
+  scrollbar-width: thin;
+}
+
+/* Base Styles */
+@layer base {
+  body {
+    @apply bg-dark-900 text-cream font-playfair antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-oswald uppercase tracking-tight;
+  }
+
+  a {
+    @apply transition-colors duration-300;
+  }
+}
+
+/* Component Styles */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-4 bg-primary-400 text-dark-900 pl-8 pr-2 py-2 rounded-full hover:bg-cream transition-all duration-500 hover:shadow-2xl hover:shadow-primary-400/20;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 border border-primary-400/30 px-6 py-3 rounded-full text-sm font-oswald uppercase tracking-widest text-cream hover:bg-primary-400 hover:text-dark-900 transition-colors duration-300;
+  }
+
+  .card {
+    @apply bg-dark-800/30 p-10 rounded-3xl border border-primary-400/20 text-center hover:bg-dark-800/60 transition-colors duration-500;
+  }
+
+  .section-title {
+    @apply text-4xl sm:text-5xl font-playfair italic text-cream mb-6 tracking-tight;
+  }
+
+  .reveal {
+    @apply opacity-0 transform translate-y-10 transition-all duration-1000;
+  }
+
+  .reveal.active {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Utility Classes */
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-400 to-primary-300 bg-clip-text text-transparent;
+  }
+
+  .glass-effect {
+    @apply bg-dark-900/80 backdrop-blur-md border border-primary-400/20;
+  }
+}
+
+/* PrimeNG Customization */
+:host ::ng-deep {
+  .p-component {
+    --primary-color: #d4a373;
+    --primary-500: #d4a373;
+    --surface-ground: #1a1614;
+    --surface-section: #2f2a28;
+    --text-color: #e9edc9;
+    --text-color-secondary: #b3b3b3;
+  }
+
+  .p-button.p-button-primary {
+    @apply bg-primary-400 hover:bg-primary-500;
+  }
+
+  .p-inputtext {
+    @apply bg-dark-800 text-cream border-dark-700;
+  }
+}
