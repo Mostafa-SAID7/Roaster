@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-hero',
   standalone: true,
   imports: [CommonModule],
+  host: { 'class': 'block' },
   template: `
     <header class="relative w-full min-h-[90vh] rounded-[2rem] overflow-hidden bg-dark-800/30 shadow-2xl reveal active flex flex-col border border-dark-800">
       <!-- Navigation Bar -->
@@ -19,15 +20,25 @@ import { CommonModule } from '@angular/common';
           <span class="text-primary-400 text-sm sm:text-lg lg:text-xl font-oswald uppercase tracking-widest font-semibold hidden sm:inline">Island Roaster</span>
         </div>
 
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center gap-1 bg-dark-900/80 backdrop-blur-md border border-primary-400/20 rounded-full p-1.5 px-2 font-oswald uppercase tracking-widest text-xs lg:text-sm animate-fadeInDown flex-1 justify-center max-w-md" style="animation-delay: 100ms">
+        <!-- Desktop Menu (centered) -->
+        <div class="hidden md:flex items-center gap-1 bg-dark-900/80 backdrop-blur-md border border-primary-400/20 rounded-full p-1.5 px-2 font-oswald uppercase tracking-widest text-xs lg:text-sm animate-fadeInDown" style="animation-delay: 100ms">
           <a href="#story" class="px-3 lg:px-5 py-2 text-cream/80 hover:text-primary-400 hover:bg-dark-800 rounded-full transition-all duration-300 hover:scale-105 text-xs lg:text-sm">Our Story</a>
           <a href="#process" class="px-3 lg:px-5 py-2 text-cream/80 hover:text-primary-400 hover:bg-dark-800 rounded-full transition-all duration-300 hover:scale-105 text-xs lg:text-sm">Bean-to-Mug</a>
           <a href="#delivery" class="px-3 lg:px-5 py-2 text-cream/80 hover:text-primary-400 hover:bg-dark-800 rounded-full transition-all duration-300 hover:scale-105 text-xs lg:text-sm">Delivery</a>
         </div>
 
-        <!-- Right Actions -->
-        <div class="hidden md:flex items-center gap-2 lg:gap-3 animate-fadeInDown ml-auto" style="animation-delay: 200ms">
+        <!-- Mobile Menu Toggle -->
+        <button (click)="toggleMobileMenu()" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg border border-primary-400/30 hover:border-primary-400 transition-all duration-300 animate-fadeInDown" style="animation-delay: 100ms">
+          <svg class="w-6 h-6 text-primary-400" [class.hidden]="mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg class="w-6 h-6 text-primary-400" [class.hidden]="!mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+
+        <!-- Right Actions (Desktop) -->
+        <div class="hidden md:flex items-center gap-2 lg:gap-3 animate-fadeInDown" style="animation-delay: 200ms">
           <a href="#shop" class="group flex items-center gap-2 lg:gap-3 bg-primary-400 pl-3 lg:pl-5 pr-1 lg:pr-1.5 py-1.5 rounded-full hover:bg-cream transition-all duration-300 hover:shadow-lg hover:scale-105 text-xs lg:text-sm">
             <span class="font-oswald uppercase tracking-widest text-dark-900 font-medium hidden sm:inline">Taste the Craft</span>
             <span class="w-7 h-7 lg:w-8 lg:h-8 bg-dark-900 rounded-full flex items-center justify-center group-hover:bg-dark-800 transition-all duration-300">
@@ -39,6 +50,16 @@ import { CommonModule } from '@angular/common';
         </div>
       </nav>
 
+      <!-- Mobile Menu -->
+      <div *ngIf="mobileMenuOpen" class="md:hidden bg-dark-900/95 backdrop-blur-md border-t border-primary-400/20 px-4 py-4 animate-slideInDown">
+        <div class="flex flex-col gap-3">
+          <a href="#story" (click)="mobileMenuOpen = false" class="px-4 py-3 text-cream/80 hover:text-primary-400 hover:bg-dark-800 rounded-lg transition-all duration-300 font-oswald uppercase tracking-widest text-sm">Our Story</a>
+          <a href="#process" (click)="mobileMenuOpen = false" class="px-4 py-3 text-cream/80 hover:text-primary-400 hover:bg-dark-800 rounded-lg transition-all duration-300 font-oswald uppercase tracking-widest text-sm">Bean-to-Mug</a>
+          <a href="#delivery" (click)="mobileMenuOpen = false" class="px-4 py-3 text-cream/80 hover:text-primary-400 hover:bg-dark-800 rounded-lg transition-all duration-300 font-oswald uppercase tracking-widest text-sm">Delivery</a>
+          <a href="#shop" (click)="mobileMenuOpen = false" class="px-4 py-3 bg-primary-400 text-dark-900 rounded-lg transition-all duration-300 font-oswald uppercase tracking-widest text-sm font-semibold hover:bg-cream">Taste the Craft</a>
+        </div>
+      </div>
+
       <!-- Hero Split Content -->
       <div class="flex-1 flex flex-col lg:flex-row relative z-10 w-full h-full">
         <!-- Left: Text -->
@@ -49,7 +70,7 @@ import { CommonModule } from '@angular/common';
             <span class="font-oswald uppercase tracking-widest font-semibold">Taste The Craft</span>
             <span class="w-10 h-10 sm:w-12 sm:h-12 bg-dark-900 rounded-full flex items-center justify-center group-hover:bg-dark-800 transition-all duration-300 group-hover:translate-x-1">
               <svg class="w-5 h-5 sm:w-6 sm:h-6 text-primary-400 group-hover:text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
               </svg>
             </span>
           </a>
@@ -119,8 +140,14 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class HeroComponent implements OnInit {
+  mobileMenuOpen = false;
+
   ngOnInit(): void {
     this.setupScrollReveal();
+  }
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen = !this.mobileMenuOpen;
   }
 
   private setupScrollReveal(): void {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface IslandOption {
@@ -11,7 +11,7 @@ export interface IslandOption {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="relative w-full">
+    <div class="relative w-full" (clickOutside)="closeDropdown()">
       <button type="button" (click)="toggleDropdown()" [ngClass]="{'border-primary-400': isOpen, 'shadow-lg': isOpen, 'shadow-primary-400/20': isOpen}" class="w-full h-14 px-5 bg-gradient-to-r from-dark-800 to-dark-900 border border-primary-400/40 rounded-xl text-cream font-oswald uppercase tracking-widest text-sm font-medium flex items-center justify-between hover:border-primary-400/70 transition-all duration-300 hover:shadow-lg hover:shadow-primary-400/10 focus:outline-none focus:border-primary-400 focus:shadow-lg focus:shadow-primary-400/20">
         <span [ngClass]="{'text-cream/60': !selectedLabel}">{{ selectedLabel || placeholder }}</span>
         <svg class="w-5 h-5 text-primary-400 transition-transform duration-300" [class.rotate-180]="isOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,20 +61,33 @@ export interface IslandOption {
     }
   `]
 })
-export class IslandSelectorComponent {
+export class IslandSelectorComponent implements OnInit, OnDestroy {
   @Input() options: IslandOption[] = [];
   @Input() placeholder: string = 'Select Island...';
   @Input() selectedValue: string = '';
   @Output() selectionChange = new EventEmitter<string>();
 
   isOpen = false;
+  private clickListener: ((event: MouseEvent) => void) | null = null;
 
   get selectedLabel(): string {
     return this.options.find(opt => opt.value === this.selectedValue)?.label || '';
   }
 
+  ngOnInit(): void {
+    this.setupClickOutsideListener();
+  }
+
+  ngOnDestroy(): void {
+    this.removeClickOutsideListener();
+  }
+
   toggleDropdown(): void {
     this.isOpen = !this.isOpen;
+  }
+
+  closeDropdown(): void {
+    this.isOpen = false;
   }
 
   selectOption(option: IslandOption): void {
@@ -83,12 +96,19 @@ export class IslandSelectorComponent {
     this.isOpen = false;
   }
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent): void {
-    if (!this.isOpen) return;
-    const target = event.target as HTMLElement;
-    if (!target.closest('app-island-selector')) {
-      this.isOpen = false;
+  private setupClickOutsideListener(): void {
+    this.clickListener = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('app-island-selector')) {
+        this.closeDropdown();
+      }
+    };
+    document.addEventListener('click', this.clickListener);
+  }
+
+  private removeClickOutsideListener(): void {
+    if (this.clickListener) {
+      document.removeEventListener('click', this.clickListener);
     }
   }
 }
