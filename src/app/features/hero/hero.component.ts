@@ -16,8 +16,8 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
         <!-- Logo -->
         <div (click)="scrollToSection('hero')" class="flex items-center gap-2 sm:gap-3 cursor-pointer group min-w-fit">
           <div class="text-primary-400 p-1.5 sm:p-2 rounded-lg border border-primary-400/30 bg-dark-900/50 group-hover:scale-110 transition-transform duration-300">
-            <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 animate-svgFloat" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v-4m4 4v-4m-8 4v-4M5.25 8h13.5v9a3.75 3.75 0 01-3.75 3.75h-6A3.75 3.75 0 015.25 17V8zM18.75 11.25h1.125A1.875 1.875 0 0121.75 13.125v.75a1.875 1.875 0 01-1.875 1.875h-1.125V11.25z"/>
             </svg>
           </div>
           <span class="text-primary-400 text-sm sm:text-lg lg:text-xl font-bold uppercase tracking-widest hidden sm:inline group-hover:text-cream transition-colors">Roaster</span>
@@ -38,7 +38,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 
         <!-- Mobile Menu Toggle -->
         <button (click)="toggleMobileMenu()" class="md:hidden flex items-center justify-center w-10 h-10 rounded-xl border border-primary-400/30 hover:border-primary-400 transition-all duration-300">
-          <svg class="w-6 h-6 text-primary-400" [class.hidden]="mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-6 h-6 text-primary-400 animate-svgPulse" [class.hidden]="mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
           <svg class="w-6 h-6 text-primary-400" [class.hidden]="!mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
           <a (click)="scrollToSection('shop')" class="group flex items-center gap-3 bg-primary-400 pl-5 pr-1.5 py-1.5 rounded-full hover:bg-cream transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95">
             <span class="font-bold uppercase tracking-widest text-dark-900 text-xs">Taste the Craft</span>
             <span class="w-8 h-8 bg-dark-900 rounded-full flex items-center justify-center group-hover:bg-dark-800 transition-all duration-300">
-              <svg class="w-4 h-4 text-primary-400 group-hover:text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 text-primary-400 group-hover:text-cream animate-svgPulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
               </svg>
             </span>
@@ -194,7 +194,7 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   mobileNavLinkClass(section: string): string {
     return this.activeSection === section 
-      ? 'text-primary-400 bg-dark-800 border-l-4 border-primary-400' 
+      ? 'text-primary-400 bg-dark-800' 
       : 'text-cream/80 hover:text-primary-400 hover:bg-dark-800';
   }
 }

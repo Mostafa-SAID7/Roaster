@@ -9,8 +9,8 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <section id="process" class="mt-32 px-4 sm:px-6 reveal">
-      <div class="text-center max-w-3xl mx-auto mb-16">
+    <section id="process" class="mt-24 sm:mt-32 lg:mt-44 px-4 sm:px-6 reveal">
+      <div class="text-center max-w-3xl mx-auto mb-20 lg:mb-28">
         <span class="text-primary-400 font-bold uppercase text-sm tracking-[0.2em] mb-4 block">Roasted With Purpose</span>
         <h2 class="section-title">The Bean-to-Mug Journey</h2>
         <p class="text-cream/70 text-lg">Experience the meticulous craft behind every cup. Interact with our process below.</p>
@@ -19,7 +19,11 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
       <!-- Origin Selection Map -->
       <div class="bg-dark-900 rounded-[2rem] border border-primary-400/20 p-6 sm:p-10 mb-8 relative overflow-hidden group">
         <h3 class="text-2xl font-bold uppercase tracking-widest text-primary-400 mb-8 flex items-center gap-3">
-          <span class="w-8 h-px bg-primary-400/50 block"></span> Origin Selection
+          <svg class="w-6 h-6 animate-svgPulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+          </svg>
+          Origin Selection
         </h3>
         <div class="relative w-full h-[300px] sm:h-[400px] bg-dark-900 rounded-2xl border border-dark-800 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop" 
@@ -50,7 +54,10 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
       <div class="bg-dark-900 rounded-[2rem] border border-primary-400/20 p-6 sm:p-10 mb-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
           <h3 class="text-2xl font-bold uppercase tracking-widest text-primary-400 mb-6 flex items-center gap-3">
-            <span class="w-8 h-px bg-primary-400/50 block"></span> The Roast Chamber
+            <svg class="w-6 h-6 animate-svgFlicker" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+            </svg>
+            The Roast Chamber
           </h3>
           <p class="text-cream/70 text-base mb-10">Slide to adjust the roast level. Witness how heat transforms the bean's character, crafted specifically for the Maldivian palate.</p>
 
@@ -104,7 +111,10 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
       <!-- Brewing Methods -->
       <div class="bg-dark-900 rounded-[2rem] border border-primary-400/20 p-6 sm:p-10 mb-8">
         <h3 class="text-2xl font-bold uppercase tracking-widest text-primary-400 mb-8 flex items-center justify-center gap-3">
-          <span class="w-8 h-px bg-primary-400/50 block"></span> Brewing Perfection <span class="w-8 h-px bg-primary-400/50 block"></span>
+          <svg class="w-6 h-6 animate-svgFloat" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v-4m4 4v-4m-8 4v-4M5.25 8h13.5v9a3.75 3.75 0 01-3.75 3.75h-6A3.75 3.75 0 015.25 17V8zM18.75 11.25h1.125A1.875 1.875 0 0121.75 13.125v.75a1.875 1.875 0 01-1.875 1.875h-1.125V11.25z" />
+          </svg>
+          Brewing Perfection
         </h3>
 
         <!-- Tabs -->

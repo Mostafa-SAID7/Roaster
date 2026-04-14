@@ -6,60 +6,71 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <footer id="shop" class="mt-32 py-12 px-6 flex flex-col md:flex-row items-center md:items-start justify-between border-t border-dark-800/40 gap-12 reveal text-center md:text-left">
-      <!-- Brand Section -->
-      <div class="space-y-6 flex flex-col items-center md:items-start animate-slideInUp">
-        <div class="flex items-center gap-3 group">
-          <div class="text-primary-400 p-2 rounded-lg border border-primary-400/30 bg-dark-900 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary-400/20 transition-all duration-300">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
-            </svg>
+    <footer id="shop" class="mt-16 sm:mt-24 border-t border-primary-400/10 bg-dark-900 rounded-t-[3rem] sm:rounded-t-[4rem] px-4 overflow-hidden relative reveal">
+      <!-- Background Glow -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-primary-400/30 to-transparent"></div>
+      
+      <div class="max-w-[1500px] mx-auto py-12 sm:py-16 px-4 sm:px-6">
+        <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-12 sm:gap-16">
+          <!-- Brand Section -->
+          <div class="space-y-6 flex flex-col items-center md:items-start animate-slideInUp">
+            <div (click)="scrollToTop()" class="flex items-center gap-3 group cursor-pointer">
+              <div class="text-primary-400 p-2 rounded-lg border border-primary-400/30 bg-dark-950 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary-400/20 transition-all duration-300">
+                <svg class="w-5 h-5 text-primary-400 animate-svgFloat" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v-4m4 4v-4m-8 4v-4M5.25 8h13.5v9a3.75 3.75 0 01-3.75 3.75h-6A3.75 3.75 0 015.25 17V8zM18.75 11.25h1.125A1.875 1.875 0 0121.75 13.125v.75a1.875 1.875 0 01-1.875 1.875h-1.125V11.25z" />
+                </svg>
+              </div>
+              <span class="text-primary-400 text-xl font-bold uppercase tracking-widest group-hover:text-cream transition-colors duration-300">Roaster</span>
+            </div>
+            <p class="text-sm text-cream/50 max-w-xs text-center md:text-left italic leading-relaxed">A commitment to roasting excellence in the Maldives. Sustainable, fresh, unparalleled.</p>
           </div>
-          <span class="text-cream text-xl font-oswald uppercase tracking-widest font-medium group-hover:text-primary-400 transition-colors duration-300">Roaster</span>
-        </div>
-        <p class="text-sm text-cream/60 max-w-xs italic">A commitment to roasting excellence in the Maldives. Sustainable, fresh, unparalleled.</p>
-      </div>
 
-      <!-- Links Section -->
-      <div class="flex flex-col sm:flex-row gap-12 sm:gap-16 text-sm">
-        <!-- Shop Links -->
-        <div class="animate-slideInUp" style="animation-delay: 100ms">
-          <h4 class="font-oswald uppercase tracking-widest text-primary-400 mb-5 text-base flex items-center justify-center sm:justify-start gap-2">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-. 9-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2zM7.17 14.75l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.86-7.01H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25z"/>
-            </svg>
-            Shop
-          </h4>
-          <ul class="space-y-3 text-cream/70">
-            <li><a href="#" class="hover:text-primary-400 transition-colors duration-300 hover:translate-x-1 inline-block">Single Origin</a></li>
-            <li><a href="#" class="hover:text-primary-400 transition-colors duration-300 hover:translate-x-1 inline-block">Signature Blends</a></li>
-            <li><a href="#" class="hover:text-primary-400 transition-colors duration-300 hover:translate-x-1 inline-block">Brewing Gear</a></li>
-          </ul>
+          <!-- Links Section -->
+          <div class="flex flex-col sm:flex-row gap-12 sm:gap-24 text-sm">
+            <!-- Shop Links -->
+            <div class="animate-slideInUp" style="animation-delay: 100ms">
+              <h4 class="font-bold uppercase tracking-[0.2em] text-primary-400 mb-6 text-xs text-center sm:text-left flex items-center justify-center sm:justify-start gap-2">
+                <svg class="w-4 h-4 animate-svgPulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                Shop
+              </h4>
+              <ul class="space-y-4 text-cream/70 text-center sm:text-left">
+                <li><a href="#" class="hover:text-primary-400 transition-colors duration-300">Single Origin</a></li>
+                <li><a href="#" class="hover:text-primary-400 transition-colors duration-300">Signature Blends</a></li>
+                <li><a href="#" class="hover:text-primary-400 transition-colors duration-300">Brewing Gear</a></li>
+              </ul>
+            </div>
+
+            <!-- Company Links -->
+            <div class="animate-slideInUp" style="animation-delay: 150ms">
+              <h4 class="font-bold uppercase tracking-[0.2em] text-primary-400 mb-6 text-xs text-center sm:text-left flex items-center justify-center sm:justify-start gap-2">
+                <svg class="w-4 h-4 animate-svgFloat" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+                </svg>
+                Company
+              </h4>
+              <ul class="space-y-4 text-cream/70 text-center sm:text-left">
+                <li><a href="#story" class="hover:text-primary-400 transition-colors duration-300">Our Story</a></li>
+                <li><a href="#" class="hover:text-primary-400 transition-colors duration-300">Wholesale</a></li>
+                <li><a href="#" class="hover:text-primary-400 transition-colors duration-300">Contact</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
 
-        <!-- Company Links -->
-        <div class="animate-slideInUp" style="animation-delay: 150ms">
-          <h4 class="font-oswald uppercase tracking-widest text-primary-400 mb-5 text-base flex items-center justify-center sm:justify-start gap-2">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-            </svg>
-            Company
-          </h4>
-          <ul class="space-y-3 text-cream/70">
-            <li><a href="#story" class="hover:text-primary-400 transition-colors duration-300 hover:translate-x-1 inline-block">Our Story</a></li>
-            <li><a href="#" class="hover:text-primary-400 transition-colors duration-300 hover:translate-x-1 inline-block">Wholesale</a></li>
-            <li><a href="#" class="hover:text-primary-400 transition-colors duration-300 hover:translate-x-1 inline-block">Contact</a></li>
-          </ul>
+        <!-- Copyright -->
+        <div class="mt-20 pt-8 border-t border-primary-400/5 text-center text-[10px] font-bold tracking-[0.3em] text-cream/30 uppercase">
+          © 2024 - {{currentYear}} Roaster Maldives. All rights reserved.
         </div>
       </div>
     </footer>
-
-    <!-- Copyright -->
-    <div class="text-center pb-8 text-xs font-oswald tracking-widest text-cream/40 uppercase reveal animate-slideInUp delay-200">
-      © 2024 - {{currentYear}} Roaster Maldives. All rights reserved.
-    </div>
   `,
 })
 export class FooterComponent {
   currentYear = new Date().getFullYear();
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }

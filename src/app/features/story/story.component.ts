@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section id="story" class="mt-32 max-w-7xl mx-auto reveal group">
-      <div class="relative bg-dark-900 rounded-[3rem] border border-primary-400/10 p-8 sm:p-12 lg:px-20 lg:py-24 shadow-2xl overflow-hidden">
+    <section id="story" class="mt-24 sm:mt-32 lg:mt-44 max-w-7xl mx-auto reveal group">
+      <div class="relative bg-dark-900 rounded-[3rem] border border-primary-400/10 p-8 sm:p-12 lg:p-20 shadow-2xl overflow-hidden">
         <!-- Background Accent -->
         <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary-400/5 blur-[100px] rounded-full pointer-events-none"></div>
 
@@ -29,8 +29,8 @@ import { CommonModule } from '@angular/common';
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 relative z-10">
           <div class="card hover:scale-105 transition-all duration-500 bg-dark-900 border-primary-400/10">
             <div class="w-16 h-16 rounded-full bg-dark-900 text-primary-400 flex items-center justify-center mx-auto mb-6 border border-primary-400/20 shadow-[0_0_20px_rgba(212,163,115,0.1)]">
-              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+              <svg class="w-8 h-8 animate-svgSway" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747C19.716 11.253 16 9 16 9s-2.253 3.716-5.253 4.716A9.004 9.004 0 0012 21zm0 0c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9z"/>
               </svg>
             </div>
             <h4 class="text-xl font-bold uppercase tracking-widest text-cream mb-3">Sustainably Sourced</h4>
@@ -39,8 +39,9 @@ import { CommonModule } from '@angular/common';
 
           <div class="card hover:scale-105 transition-all duration-500 bg-dark-900 border-primary-400/10">
             <div class="w-16 h-16 rounded-full bg-dark-900 text-primary-400 flex items-center justify-center mx-auto mb-6 border border-primary-400/20 shadow-[0_0_20px_rgba(212,163,115,0.1)]">
-              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.23 0-2.25-1.31-2.25-2.72s.92-2.72 2.25-2.72 2.25 1.31 2.25 2.72-1.02 2.72-2.25 2.72z"/>
+              <svg class="w-8 h-8 animate-svgFlicker" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-1.568-4.564A3.75 3.75 0 0012 18z" />
               </svg>
             </div>
             <h4 class="text-xl font-bold uppercase tracking-widest text-cream mb-3">Expertly Roasted</h4>
@@ -49,8 +50,8 @@ import { CommonModule } from '@angular/common';
 
           <div class="card hover:scale-105 transition-all duration-500 bg-dark-900/60 border-primary-400/10">
             <div class="w-16 h-16 rounded-full bg-dark-900 text-primary-400 flex items-center justify-center mx-auto mb-6 border border-primary-400/20 shadow-[0_0_20px_rgba(212,163,115,0.1)]">
-              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm11 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM5 11l1.5-4.5h11L19 11H5z"/>
+              <svg class="w-8 h-8 animate-svgVibrate" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.256 2.256 0 00-1.903-.933H14.25M16.5 18.75V15.75L13.2 7.125" />
               </svg>
             </div>
             <h4 class="text-xl font-bold uppercase tracking-widest text-cream mb-3">Delivered Fresh</h4>

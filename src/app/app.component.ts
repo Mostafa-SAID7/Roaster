@@ -27,8 +27,8 @@ import { BackgroundComponent } from './shared/background/background.component';
       <app-story></app-story>
       <app-process></app-process>
       <app-delivery></app-delivery>
-      <app-footer></app-footer>
     </div>
+    <app-footer></app-footer>
   `,
   styles: []
 })

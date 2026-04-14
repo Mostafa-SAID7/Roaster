@@ -9,14 +9,14 @@ import { SelectorComponent, SelectorOption } from '../../shared/selector/selecto
   standalone: true,
   imports: [CommonModule, SelectorComponent],
   template: `
-    <section id="delivery" class="mt-32 max-w-4xl mx-auto reveal">
+    <section id="delivery" class="mt-24 sm:mt-32 lg:mt-44 max-w-4xl mx-auto reveal">
       <div class="bg-dark-900 rounded-[3rem] border border-primary-400/10 shadow-2xl p-8 sm:p-12 lg:p-20 text-center relative z-10">
         <!-- Floating Accent Glow -->
         <div class="absolute -top-24 -left-24 w-64 h-64 bg-primary-400/5 blur-[100px] rounded-full"></div>
         <div class="absolute -bottom-24 -right-24 w-64 h-64 bg-primary-400/5 blur-[100px] rounded-full"></div>
       <div class="w-16 h-16 rounded-full bg-dark-900 text-primary-400 flex items-center justify-center mx-auto mb-6 border border-primary-400/30 animate-pulse">
-        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M18 18.5a1.5 1.5 0 01-1.5-1.5 1.5 1.5 0 011.5-1.5 1.5 1.5 0 011.5 1.5 1.5 1.5 0 01-1.5 1.5m1.5-9l1.96 2.5H17V9.5m-11 9A1.5 1.5 0 015.5 17 1.5 1.5 0 017 15.5 1.5 1.5 0 015.5 14m6.5 4.5H8V9.5h3.5M4 6.5H2v11a1.5 1.5 0 001.5 1.5H6m14-12H6.5v3h11.96L22 9.5z"/>
+        <svg class="w-8 h-8 animate-svgVibrate" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.256 2.256 0 00-1.903-.933H14.25M16.5 18.75V15.75L13.2 7.125" />
         </svg>
       </div>
       <h3 class="text-3xl font-macondo text-cream mb-4 tracking-tight animate-slideInUp">Freshly Packed & Delivered</h3>
