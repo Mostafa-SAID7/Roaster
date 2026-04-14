@@ -59,6 +59,10 @@
     @apply uppercase tracking-tight;
   }
 
+  p, span, a, button, label, li, div {
+    font-family: "Macondo", cursive;
+  }
+
   a {
     @apply transition-colors duration-300;
   }
