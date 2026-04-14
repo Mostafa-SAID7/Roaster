@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SelectorComponent, SelectorOption } from '../selector/selector.component';
 
 @Component({
   selector: 'app-delivery-banner',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SelectorComponent],
   template: `
     <div id="delivery" class="max-w-6xl mx-auto mb-16 lg:mb-20 scroll-mt-28">
       <div class="relative bg-dark-900 rounded-[2.5rem] border border-primary-400/10 overflow-hidden">
@@ -32,6 +33,25 @@ import { CommonModule } from '@angular/common';
               Select your island below to check delivery times and logistics directly from our Malé
               roastery. Every order is packed and sealed at the moment of dispatch.
             </p>
+
+            <div class="mt-8 flex flex-col sm:flex-row gap-4 max-w-md relative z-20">
+              <app-selector
+                [options]="islands"
+                [selectedValue]="selectedIsland"
+                placeholder="Select Island..."
+                (selectionChange)="onIslandSelected($event)"
+                class="w-full sm:w-2/3">
+              </app-selector>
+              <button 
+                (click)="checkDelivery()" 
+                class="w-full sm:w-1/3 bg-primary-400 text-dark-900 font-bold uppercase tracking-widest py-4 px-6 rounded-xl hover:bg-cream transition-all duration-300 h-14 flex items-center justify-center hover:scale-105 active:scale-95 shadow-lg shadow-primary-400/20">
+                Check
+              </button>
+            </div>
+            
+            <div *ngIf="deliveryResult" class="mt-6 text-primary-400 font-bold uppercase tracking-widest text-sm animate-fadeIn bg-dark-800/80 p-4 rounded-xl border border-primary-400/20 max-w-md backdrop-blur-sm">
+              {{ deliveryResult }}
+            </div>
           </div>
           <!-- Right: delivery cards -->
           <div class="grid grid-cols-2 gap-4">
@@ -59,4 +79,28 @@ export class DeliveryBannerComponent {
     { island: 'Villimalé',     time: '2-Day',        cost: '60 MVR',   icon: 'M12 3v2m6.364.636l-1.414 1.414M21 12h-2M18.364 18.364l-1.414-1.414M12 19v2M7.05 18.364l-1.414 1.414M5 12H3M7.05 5.636L5.636 4.222' },
     { island: 'Resorts',       time: 'Speedboat',    cost: 'Quoted',   icon: 'M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3' },
   ];
+
+  islands: SelectorOption[] = [
+    { label: 'Malé (Same-day)', value: 'male' },
+    { label: 'Hulhumalé (Same-day)', value: 'hulhumale' },
+    { label: 'Villimalé (Next-day)', value: 'villimale' },
+    { label: 'Resorts (Speedboat)', value: 'resorts' }
+  ];
+  selectedIsland = '';
+  deliveryResult = '';
+
+  onIslandSelected(value: string) {
+    this.selectedIsland = value;
+    this.deliveryResult = ''; // Clear previous result on new selection
+  }
+
+  checkDelivery() {
+    if (!this.selectedIsland) {
+      this.deliveryResult = 'Please select a destination first.';
+      return;
+    }
+    const islandOption = this.islands.find(i => i.value === this.selectedIsland);
+    const islandName = islandOption ? islandOption.label.split(' ')[0] : 'your destination';
+    this.deliveryResult = `Great! We can deliver to ${islandName} using our specialized logistics.`;
+  }
 }

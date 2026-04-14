@@ -65,9 +65,10 @@ import { CartService } from './core/services/cart.service';
 
     </div>
 
-    <app-navbar></app-navbar>
+   
 
     <app-background></app-background>
+     <app-navbar></app-navbar>
     <div class="relative z-10 max-w-[1600px] mx-auto p-2 sm:p-4 lg:p-6 overflow-hidden">
       <app-hero></app-hero>
       <app-story></app-story>
