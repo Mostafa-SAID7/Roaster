@@ -38,18 +38,6 @@ import { IslandSelectorComponent, IslandOption } from '../../shared/island-selec
       </div>
     </section>
   `,
-  styles: [`
-    :host ::ng-deep {
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-
-      .animate-fadeIn {
-        animation: fadeIn 0.3s ease-out;
-      }
-    }
-  `]
 })
 export class DeliveryComponent implements OnInit {
   selectedIsland: string = '';

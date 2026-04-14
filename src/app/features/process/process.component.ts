@@ -109,48 +109,6 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
       </div>
     </section>
   `,
-  styles: [`
-    :host ::ng-deep {
-      input[type=range] {
-        -webkit-appearance: none;
-        background: transparent;
-        width: 100%;
-      }
-
-      input[type=range]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        height: 24px;
-        width: 24px;
-        border-radius: 50%;
-        background: #d4a373;
-        cursor: pointer;
-        margin-top: -10px;
-        box-shadow: 0 0 15px rgba(212, 163, 115, 0.5);
-        border: 2px solid #1a1614;
-      }
-
-      input[type=range]::-webkit-slider-runnable-track {
-        width: 100%;
-        height: 4px;
-        cursor: pointer;
-        background: #2f2a28;
-        border-radius: 2px;
-      }
-
-      .brew-tab.active {
-        @apply bg-dark-900 text-primary-400;
-      }
-
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      .animate-fadeIn {
-        animation: fadeIn 0.5s ease-out;
-      }
-    }
-  `]
 })
 export class ProcessComponent implements OnInit {
   selectedRoastLevel: number = 1;

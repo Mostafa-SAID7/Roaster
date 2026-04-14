@@ -55,31 +55,10 @@ import { CommonModule } from '@angular/common';
     </footer>
 
     <!-- Copyright -->
-    <div class="text-center pb-8 text-xs font-oswald tracking-widest text-cream/40 uppercase reveal animate-slideInUp" style="animation-delay: 200ms">
+    <div class="text-center pb-8 text-xs font-oswald tracking-widest text-cream/40 uppercase reveal animate-slideInUp delay-200">
       © 2024 Island Roaster Maldives. All rights reserved.
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-
-    @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .animate-slideInUp {
-      animation: slideInUp 0.6s ease-out forwards;
-      opacity: 0;
-    }
-  `]
 })
 export class FooterComponent implements OnInit {
   ngOnInit(): void {

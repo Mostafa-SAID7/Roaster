@@ -54,12 +54,5 @@ import { CommonModule } from '@angular/common';
       </div>
     </section>
   `,
-  styles: [`
-    :host ::ng-deep {
-      .reveal-delay-1 { animation-delay: 150ms; }
-      .reveal-delay-2 { animation-delay: 300ms; }
-      .reveal-delay-3 { animation-delay: 450ms; }
-    }
-  `]
 })
 export class StoryComponent {}
