@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 declare global {
@@ -41,8 +41,10 @@ export class VantaBackgroundComponent implements OnInit, OnDestroy {
   @ViewChild('vantaContainer', { static: false }) vantaContainer!: ElementRef;
   private vantaEffect: any;
 
+  constructor(private renderer: Renderer2) {}
+
   ngOnInit(): void {
-    this.initVanta();
+    this.loadScriptsAndInit();
   }
 
   ngOnDestroy(): void {
@@ -51,36 +53,49 @@ export class VantaBackgroundComponent implements OnInit, OnDestroy {
     }
   }
 
-  private initVanta(): void {
-    // Wait for THREE and VANTA to be loaded
-    const checkVanta = setInterval(() => {
-      if (window.VANTA && window.THREE) {
-        clearInterval(checkVanta);
-        this.createVantaEffect();
-      }
-    }, 100);
-
-    // Timeout after 5 seconds
-    setTimeout(() => clearInterval(checkVanta), 5000);
+  private loadScriptsAndInit(): void {
+    // Load Three.js
+    const threeScript = this.renderer.createElement('script');
+    threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+    threeScript.async = true;
+    threeScript.onload = () => {
+      // Load Vanta after Three.js
+      const vantaScript = this.renderer.createElement('script');
+      vantaScript.src = 'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js';
+      vantaScript.async = true;
+      vantaScript.onload = () => {
+        setTimeout(() => this.createVantaEffect(), 100);
+      };
+      this.renderer.appendChild(document.body, vantaScript);
+    };
+    this.renderer.appendChild(document.body, threeScript);
   }
 
   private createVantaEffect(): void {
-    if (!this.vantaContainer) return;
+    if (!this.vantaContainer || !window.VANTA) {
+      console.warn('Vanta or container not ready');
+      return;
+    }
 
-    this.vantaEffect = window.VANTA.TOPOLOGY({
-      el: this.vantaContainer.nativeElement,
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200,
-      minWidth: 200,
-      scale: 1,
-      scaleMobile: 1,
-      color: 0xd4a373,
-      backgroundColor: 0x1a1614,
-      points: 12,
-      maxDistance: 20,
-      spacing: 15
-    });
+    try {
+      this.vantaEffect = window.VANTA.TOPOLOGY({
+        el: this.vantaContainer.nativeElement,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200,
+        minWidth: 200,
+        scale: 1,
+        scaleMobile: 1,
+        color: 0xd4a373,
+        backgroundColor: 0x1a1614,
+        points: 12,
+        maxDistance: 20,
+        spacing: 15
+      });
+      console.log('Vanta background initialized successfully');
+    } catch (error) {
+      console.error('Error initializing Vanta:', error);
+    }
   }
 }
