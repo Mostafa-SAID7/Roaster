@@ -12,33 +12,7 @@ declare global {
   selector: 'app-vanta-background',
   standalone: true,
   imports: [CommonModule],
-  template: `<div #vantaContainer class="vanta-container"></div>`,
-  styles: [`
-    :host {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -10;
-      pointer-events: none;
-      display: block;
-    }
-
-    .vanta-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    :host ::ng-deep canvas {
-      display: block !important;
-      width: 100% !important;
-      height: 100% !important;
-    }
-  `]
+  template: `<div #vantaContainer class="fixed inset-0 w-full h-full -z-10 pointer-events-none"></div>`,
 })
 export class VantaBackgroundComponent implements OnInit, OnDestroy {
   @ViewChild('vantaContainer', { static: false }) vantaContainer!: ElementRef;
@@ -55,15 +29,12 @@ export class VantaBackgroundComponent implements OnInit, OnDestroy {
   }
 
   private loadVanta(): void {
-    // Load Three.js first
     const threeScript = document.createElement('script');
     threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
     threeScript.onload = () => {
-      // Load Vanta after Three.js loads
       const vantaScript = document.createElement('script');
       vantaScript.src = 'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js';
       vantaScript.onload = () => {
-        // Initialize Vanta after both scripts load
         setTimeout(() => this.initVanta(), 500);
       };
       document.body.appendChild(vantaScript);
@@ -73,7 +44,7 @@ export class VantaBackgroundComponent implements OnInit, OnDestroy {
 
   private initVanta(): void {
     if (!this.vantaContainer || !window.VANTA || !window.THREE) {
-      console.error('Vanta or THREE not loaded, or container missing');
+      console.error('Vanta or THREE not loaded');
       return;
     }
 
@@ -93,9 +64,8 @@ export class VantaBackgroundComponent implements OnInit, OnDestroy {
         maxDistance: 20,
         spacing: 15
       });
-      console.log('✓ Vanta background initialized');
     } catch (error) {
-      console.error('✗ Vanta initialization error:', error);
+      console.error('Vanta error:', error);
     }
   }
 }

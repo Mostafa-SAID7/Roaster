@@ -11,7 +11,7 @@ export interface IslandOption {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="relative w-full" (clickOutside)="closeDropdown()">
+    <div class="relative w-full">
       <button type="button" (click)="toggleDropdown()" [ngClass]="{'border-primary-400': isOpen, 'shadow-lg': isOpen, 'shadow-primary-400/20': isOpen}" class="w-full h-14 px-5 bg-gradient-to-r from-dark-800 to-dark-900 border border-primary-400/40 rounded-xl text-cream font-oswald uppercase tracking-widest text-sm font-medium flex items-center justify-between hover:border-primary-400/70 transition-all duration-300 hover:shadow-lg hover:shadow-primary-400/10 focus:outline-none focus:border-primary-400 focus:shadow-lg focus:shadow-primary-400/20">
         <span [ngClass]="{'text-cream/60': !selectedLabel}">{{ selectedLabel || placeholder }}</span>
         <svg class="w-5 h-5 text-primary-400 transition-transform duration-300" [class.rotate-180]="isOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -31,35 +31,6 @@ export interface IslandOption {
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-
-    @keyframes slideInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .animate-slideInDown {
-      animation: slideInDown 0.3s ease-out;
-    }
-
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-  `]
 })
 export class IslandSelectorComponent implements OnInit, OnDestroy {
   @Input() options: IslandOption[] = [];

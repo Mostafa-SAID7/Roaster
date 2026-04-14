@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
       <!-- Navigation Bar -->
       <nav class="relative z-20 flex items-center justify-between px-4 sm:px-6 lg:px-10 py-4 sm:py-6 gap-4">
         <!-- Logo -->
-        <div class="flex items-center gap-2 sm:gap-3 animate-fadeInDown min-w-fit">
+        <div class="flex items-center gap-2 sm:gap-3 animate-fadeIn delay-0 min-w-fit">
           <div class="text-primary-400 p-1.5 sm:p-2 rounded-lg border border-primary-400/30 bg-dark-900/50 backdrop-blur-md hover:scale-110 transition-transform duration-300">
             <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
@@ -21,14 +21,14 @@ import { CommonModule } from '@angular/common';
         </div>
 
         <!-- Desktop Menu (centered) -->
-        <div class="hidden md:flex items-center gap-1 bg-dark-900/80 backdrop-blur-md border border-primary-400/20 rounded-full p-1.5 px-2 font-oswald uppercase tracking-widest text-xs lg:text-sm animate-fadeInDown" style="animation-delay: 100ms">
+        <div class="hidden md:flex items-center gap-1 bg-dark-900/80 backdrop-blur-md border border-primary-400/20 rounded-full p-1.5 px-2 font-oswald uppercase tracking-widest text-xs lg:text-sm animate-fadeIn delay-100">
           <a href="#story" class="px-3 lg:px-5 py-2 text-cream/80 hover:text-primary-400 hover:bg-dark-800 rounded-full transition-all duration-300 hover:scale-105 text-xs lg:text-sm">Our Story</a>
           <a href="#process" class="px-3 lg:px-5 py-2 text-cream/80 hover:text-primary-400 hover:bg-dark-800 rounded-full transition-all duration-300 hover:scale-105 text-xs lg:text-sm">Bean-to-Mug</a>
           <a href="#delivery" class="px-3 lg:px-5 py-2 text-cream/80 hover:text-primary-400 hover:bg-dark-800 rounded-full transition-all duration-300 hover:scale-105 text-xs lg:text-sm">Delivery</a>
         </div>
 
         <!-- Mobile Menu Toggle -->
-        <button (click)="toggleMobileMenu()" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg border border-primary-400/30 hover:border-primary-400 transition-all duration-300 animate-fadeInDown" style="animation-delay: 100ms">
+        <button (click)="toggleMobileMenu()" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg border border-primary-400/30 hover:border-primary-400 transition-all duration-300 animate-fadeIn delay-100">
           <svg class="w-6 h-6 text-primary-400" [class.hidden]="mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
@@ -38,7 +38,7 @@ import { CommonModule } from '@angular/common';
         </button>
 
         <!-- Right Actions (Desktop) -->
-        <div class="hidden md:flex items-center gap-2 lg:gap-3 animate-fadeInDown" style="animation-delay: 200ms">
+        <div class="hidden md:flex items-center gap-2 lg:gap-3 animate-fadeIn delay-200">
           <a href="#shop" class="group flex items-center gap-2 lg:gap-3 bg-primary-400 pl-3 lg:pl-5 pr-1 lg:pr-1.5 py-1.5 rounded-full hover:bg-cream transition-all duration-300 hover:shadow-lg hover:scale-105 text-xs lg:text-sm">
             <span class="font-oswald uppercase tracking-widest text-dark-900 font-medium hidden sm:inline">Taste the Craft</span>
             <span class="w-7 h-7 lg:w-8 lg:h-8 bg-dark-900 rounded-full flex items-center justify-center group-hover:bg-dark-800 transition-all duration-300">
@@ -65,8 +65,8 @@ import { CommonModule } from '@angular/common';
         <!-- Left: Text -->
         <div class="w-full lg:w-1/2 flex flex-col justify-center px-4 sm:px-8 lg:px-16 xl:px-20 py-8 sm:py-12 lg:py-0">
           <span class="reveal reveal-delay-1 inline-block text-primary-400 font-playfair italic text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mb-4 sm:mb-6 animate-slideInLeft">The Spirit of the Island</span>
-          <h1 class="reveal reveal-delay-2 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-cream font-oswald uppercase tracking-tight leading-[1.1] mb-6 sm:mb-8 max-w-2xl animate-slideInLeft" style="animation-delay: 200ms">A Commitment to Roasting Excellence in the Maldives.</h1>
-          <a href="#shop" class="reveal reveal-delay-3 w-max btn-primary group animate-slideInLeft hover:scale-105 text-sm sm:text-base" style="animation-delay: 400ms">
+          <h1 class="reveal reveal-delay-2 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-cream font-oswald uppercase tracking-tight leading-[1.1] mb-6 sm:mb-8 max-w-2xl animate-slideInLeft delay-200">A Commitment to Roasting Excellence in the Maldives.</h1>
+          <a href="#shop" class="reveal reveal-delay-3 w-max btn-primary group animate-slideInLeft hover:scale-105 text-sm sm:text-base delay-400">
             <span class="font-oswald uppercase tracking-widest font-semibold">Taste The Craft</span>
             <span class="w-10 h-10 sm:w-12 sm:h-12 bg-dark-900 rounded-full flex items-center justify-center group-hover:bg-dark-800 transition-all duration-300 group-hover:translate-x-1">
               <svg class="w-5 h-5 sm:w-6 sm:h-6 text-primary-400 group-hover:text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,60 +84,6 @@ import { CommonModule } from '@angular/common';
       </div>
     </header>
   `,
-  styles: [`
-    :host ::ng-deep {
-      @keyframes fadeInDown {
-        from {
-          opacity: 0;
-          transform: translateY(-20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes slideInLeft {
-        from {
-          opacity: 0;
-          transform: translateX(-40px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      @keyframes slideInRight {
-        from {
-          opacity: 0;
-          transform: translateX(40px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
-
-      .animate-fadeInDown {
-        animation: fadeInDown 0.6s ease-out forwards;
-      }
-
-      .animate-slideInLeft {
-        animation: slideInLeft 0.8s ease-out forwards;
-        opacity: 0;
-      }
-
-      .animate-slideInRight {
-        animation: slideInRight 0.8s ease-out forwards;
-        opacity: 0;
-      }
-
-      .reveal-delay-1 { animation-delay: 150ms; }
-      .reveal-delay-2 { animation-delay: 300ms; }
-      .reveal-delay-3 { animation-delay: 450ms; }
-    }
-  `]
 })
 export class HeroComponent implements OnInit {
   mobileMenuOpen = false;

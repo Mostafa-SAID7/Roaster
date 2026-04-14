@@ -132,6 +132,67 @@
     z-index: 50;
   }
 
+  /* Animation delay utilities */
+  .delay-50 {
+    animation-delay: 50ms;
+  }
+
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .delay-150 {
+    animation-delay: 150ms;
+  }
+
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .delay-450 {
+    animation-delay: 450ms;
+  }
+
+  /* Reveal animation utilities */
+  .reveal {
+    @apply opacity-0 transform translate-y-10 transition-all duration-1000;
+  }
+
+  .reveal.active {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .reveal-delay-1 {
+    animation-delay: 150ms;
+  }
+
+  .reveal-delay-2 {
+    animation-delay: 300ms;
+  }
+
+  .reveal-delay-3 {
+    animation-delay: 450ms;
+  }
+
+  /* Scrollbar utilities */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
   /* Animation Utilities */
   @keyframes fadeIn {
     from { opacity: 0; }
@@ -259,7 +320,6 @@
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
-}
 
 /* PrimeNG Customization - Removed for custom selector */
 :host ::ng-deep {
