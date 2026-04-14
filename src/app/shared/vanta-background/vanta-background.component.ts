@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 declare global {
@@ -12,15 +12,9 @@ declare global {
   selector: 'app-vanta-background',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div #vantaContainer class="fixed inset-0 w-full h-full -z-10 vanta-bg"></div>
-  `,
+  template: `<div #vantaContainer class="vanta-container"></div>`,
   styles: [`
     :host {
-      display: block;
-    }
-
-    .vanta-bg {
       position: fixed;
       top: 0;
       left: 0;
@@ -28,10 +22,19 @@ declare global {
       height: 100%;
       z-index: -10;
       pointer-events: none;
+      display: block;
+    }
+
+    .vanta-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
 
     :host ::ng-deep canvas {
-      display: block;
+      display: block !important;
       width: 100% !important;
       height: 100% !important;
     }
@@ -41,10 +44,8 @@ export class VantaBackgroundComponent implements OnInit, OnDestroy {
   @ViewChild('vantaContainer', { static: false }) vantaContainer!: ElementRef;
   private vantaEffect: any;
 
-  constructor(private renderer: Renderer2) {}
-
   ngOnInit(): void {
-    this.loadScriptsAndInit();
+    this.loadVanta();
   }
 
   ngOnDestroy(): void {
@@ -53,27 +54,26 @@ export class VantaBackgroundComponent implements OnInit, OnDestroy {
     }
   }
 
-  private loadScriptsAndInit(): void {
-    // Load Three.js
-    const threeScript = this.renderer.createElement('script');
+  private loadVanta(): void {
+    // Load Three.js first
+    const threeScript = document.createElement('script');
     threeScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-    threeScript.async = true;
     threeScript.onload = () => {
-      // Load Vanta after Three.js
-      const vantaScript = this.renderer.createElement('script');
+      // Load Vanta after Three.js loads
+      const vantaScript = document.createElement('script');
       vantaScript.src = 'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js';
-      vantaScript.async = true;
       vantaScript.onload = () => {
-        setTimeout(() => this.createVantaEffect(), 100);
+        // Initialize Vanta after both scripts load
+        setTimeout(() => this.initVanta(), 500);
       };
-      this.renderer.appendChild(document.body, vantaScript);
+      document.body.appendChild(vantaScript);
     };
-    this.renderer.appendChild(document.body, threeScript);
+    document.body.appendChild(threeScript);
   }
 
-  private createVantaEffect(): void {
-    if (!this.vantaContainer || !window.VANTA) {
-      console.warn('Vanta or container not ready');
+  private initVanta(): void {
+    if (!this.vantaContainer || !window.VANTA || !window.THREE) {
+      console.error('Vanta or THREE not loaded, or container missing');
       return;
     }
 
@@ -93,9 +93,9 @@ export class VantaBackgroundComponent implements OnInit, OnDestroy {
         maxDistance: 20,
         spacing: 15
       });
-      console.log('Vanta background initialized successfully');
+      console.log('✓ Vanta background initialized');
     } catch (error) {
-      console.error('Error initializing Vanta:', error);
+      console.error('✗ Vanta initialization error:', error);
     }
   }
 }

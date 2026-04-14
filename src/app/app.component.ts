@@ -22,7 +22,7 @@ import { VantaBackgroundComponent } from './shared/vanta-background/vanta-backgr
   ],
   template: `
     <app-vanta-background></app-vanta-background>
-    <div class="relative z-0 max-w-[1600px] mx-auto p-2 sm:p-4 lg:p-6 overflow-hidden">
+    <div class="relative z-10 max-w-[1600px] mx-auto p-2 sm:p-4 lg:p-6 overflow-hidden">
       <app-hero></app-hero>
       <app-story></app-story>
       <app-process></app-process>
