@@ -33,6 +33,7 @@ module.exports = {
         cream: '#E9EDC9',
       },
       fontFamily: {
+        macondo: ['Macondo', 'cursive'],
         oswald: ['Oswald', 'sans-serif'],
         playfair: ['Playfair Display', 'serif'],
       },
