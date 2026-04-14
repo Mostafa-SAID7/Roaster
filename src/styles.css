@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Performance Optimization */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 12px;
@@ -171,6 +177,15 @@
     }
   }
 
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
   .animate-fadeIn {
     animation: fadeIn 0.6s ease-out;
   }
@@ -206,9 +221,13 @@
   .animate-pulse {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
 }
 
-/* PrimeNG Customization */
+/* PrimeNG Customization - Removed for custom selector */
 :host ::ng-deep {
   .p-component {
     --primary-color: #d4a373;
@@ -225,5 +244,25 @@
 
   .p-inputtext {
     @apply bg-dark-800 text-cream border-dark-700;
+  }
+}
+
+/* Responsive Image Optimization */
+img {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Smooth Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduce Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
