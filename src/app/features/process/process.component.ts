@@ -11,14 +11,14 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
   template: `
     <section id="process" class="mt-32 px-4 sm:px-6 reveal">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-primary-400 font-oswald uppercase text-sm tracking-[0.2em] mb-4 block font-exo2">Roasted With Purpose</span>
-        <h2 class="section-title font-exo2">The Bean-to-Mug Journey</h2>
+        <span class="text-primary-400 font-oswald uppercase text-sm tracking-[0.2em] mb-4 block">Roasted With Purpose</span>
+        <h2 class="section-title">The Bean-to-Mug Journey</h2>
         <p class="text-cream/70 text-lg">Experience the meticulous craft behind every cup. Interact with our process below.</p>
       </div>
 
       <!-- Origin Selection Map -->
       <div class="bg-dark-800/30 rounded-[2rem] border border-primary-400/20 p-6 sm:p-10 mb-8 relative overflow-hidden group">
-        <h3 class="text-2xl font-oswald uppercase tracking-widest text-primary-400 mb-8 flex items-center gap-3 font-exo2">
+        <h3 class="text-2xl font-oswald uppercase tracking-widest text-primary-400 mb-8 flex items-center gap-3">
           <span class="w-8 h-px bg-primary-400/50 block"></span> Origin Selection
         </h3>
         <div class="relative w-full h-[300px] sm:h-[400px] bg-dark-900 rounded-2xl border border-dark-800 overflow-hidden">
@@ -46,7 +46,7 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
       <!-- Roast Chamber -->
       <div class="bg-dark-800/30 rounded-[2rem] border border-primary-400/20 p-6 sm:p-10 mb-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <div>
-          <h3 class="text-2xl font-oswald uppercase tracking-widest text-primary-400 mb-6 flex items-center gap-3 font-exo2">
+          <h3 class="text-2xl font-oswald uppercase tracking-widest text-primary-400 mb-6 flex items-center gap-3">
             <span class="w-8 h-px bg-primary-400/50 block"></span> The Roast Chamber
           </h3>
           <p class="text-cream/70 text-base mb-10">Slide to adjust the roast level. Witness how heat transforms the bean's character, crafted specifically for the Maldivian palate.</p>
@@ -74,7 +74,7 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
 
       <!-- Brewing Methods -->
       <div class="bg-dark-800/30 rounded-[2rem] border border-primary-400/20 p-6 sm:p-10 mb-8">
-        <h3 class="text-2xl font-oswald uppercase tracking-widest text-primary-400 mb-8 flex items-center justify-center gap-3 font-exo2">
+        <h3 class="text-2xl font-oswald uppercase tracking-widest text-primary-400 mb-8 flex items-center justify-center gap-3">
           <span class="w-8 h-px bg-primary-400/50 block"></span> Brewing Perfection <span class="w-8 h-px bg-primary-400/50 block"></span>
         </h3>
 
