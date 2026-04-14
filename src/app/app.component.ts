@@ -6,14 +6,14 @@ import { StoryComponent } from './features/story/story.component';
 import { ProcessComponent } from './features/process/process.component';
 import { DeliveryComponent } from './features/delivery/delivery.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { VantaBackgroundComponent } from './shared/vanta-background/vanta-background.component';
+import { BackgroundComponent } from './shared/background/background.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
-    VantaBackgroundComponent,
+    BackgroundComponent,
     HeroComponent,
     StoryComponent,
     ProcessComponent,
@@ -21,7 +21,7 @@ import { VantaBackgroundComponent } from './shared/vanta-background/vanta-backgr
     FooterComponent
   ],
   template: `
-    <app-vanta-background></app-vanta-background>
+    <app-background></app-background>
     <div class="relative z-10 max-w-[1600px] mx-auto p-2 sm:p-4 lg:p-6 overflow-hidden">
       <app-hero></app-hero>
       <app-story></app-story>

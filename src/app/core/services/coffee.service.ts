@@ -34,25 +34,25 @@ export class CoffeeService {
       id: 0,
       title: 'Light Roast',
       description: 'Floral, Citrus, Tea-like brightness. Best for Pour Over.',
-      filter: 'brightness(130%) sepia(0.1)'
+      filter: 'brightness(135%) sepia(0.1) contrast(105%) saturate(120%)'
     },
     {
       id: 1,
       title: 'Medium-Light Roast',
       description: 'Bright berry acidity, milk chocolate finish, delicate sweetness.',
-      filter: 'brightness(110%) sepia(0.2)'
+      filter: 'brightness(115%) sepia(0.25) saturate(110%)'
     },
     {
       id: 2,
       title: 'Medium-Dark Roast',
       description: 'Caramel, Nutty notes with a full body and low acidity.',
-      filter: 'brightness(90%) sepia(0.4) contrast(110%)'
+      filter: 'brightness(85%) sepia(0.45) contrast(115%) saturate(90%)'
     },
     {
       id: 3,
       title: 'Dark Roast',
       description: 'Dark chocolate, smoky, bold punch. Perfect for Espresso.',
-      filter: 'brightness(70%) sepia(0.5) contrast(120%)'
+      filter: 'brightness(60%) sepia(0.7) contrast(135%) saturate(80%) hue-rotate(-15deg)'
     }
   ];
 

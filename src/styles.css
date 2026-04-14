@@ -45,12 +45,12 @@
   }
 
   body {
-    @apply bg-dark-900 text-cream antialiased;
+    @apply bg-transparent text-cream antialiased;
     position: relative;
   }
 
   html {
-    @apply bg-dark-900;
+    @apply bg-transparent;
     scroll-behavior: smooth;
   }
 
@@ -76,7 +76,7 @@
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 border border-primary-400/30 px-6 py-3 rounded-full text-sm font-oswald uppercase tracking-widest text-cream hover:bg-primary-400 hover:text-dark-900 transition-colors duration-300;
+    @apply inline-flex items-center gap-2 border border-primary-400/30 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest text-cream hover:bg-primary-400 hover:text-dark-900 transition-colors duration-300;
   }
 
   .card {
@@ -84,7 +84,7 @@
   }
 
   .section-title {
-    @apply text-4xl sm:text-5xl font-playfair italic text-cream mb-6 tracking-tight;
+    @apply text-4xl sm:text-5xl font-macondo text-cream mb-6 tracking-tight;
   }
 
   .reveal {
@@ -118,6 +118,10 @@
   /* Z-index utilities */
   .-z-10 {
     z-index: -10;
+  }
+
+  .-z-5 {
+    z-index: -5;
   }
 
   .z-0 {
@@ -232,11 +236,21 @@ input[type=range]::-moz-range-track {
   height: 4px;
 }
 
-/* Reduce Motion for Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+/* Premium Image Animations */
+@keyframes imageSlowZoom {
+  0%, 100% { transform: scale(1.05); }
+  50% { transform: scale(1.15); }
+}
+
+.animate-imageSlowZoom {
+  animation: imageSlowZoom 15s ease-in-out infinite;
+}
+
+@keyframes subtleGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 163, 115, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(212, 163, 115, 0.2); }
+}
+
+.animate-subtleGlow {
+  animation: subtleGlow 6s ease-in-out infinite;
 }

@@ -34,9 +34,7 @@ module.exports = {
       },
       fontFamily: {
         macondo: ['Macondo', 'cursive'],
-        exo2: ['Exo 2', 'sans-serif'],
-        oswald: ['Oswald', 'sans-serif'],
-        playfair: ['Playfair Display', 'serif'],
+        exo: ['"Exo 2"', 'sans-serif'],
       },
       animation: {
         fadeIn: 'fadeIn 0.6s ease-out',
