@@ -41,7 +41,7 @@
 /* Base Styles */
 @layer base {
   * {
-    font-family: "Macondo", cursive;
+    font-family: "Exo 2", sans-serif;
   }
 
   body {
@@ -55,12 +55,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Exo 2", sans-serif;
-    @apply uppercase tracking-tight;
-  }
-
-  p, span, a, button, label, li, div {
     font-family: "Macondo", cursive;
+    @apply uppercase tracking-tight;
   }
 
   a {
