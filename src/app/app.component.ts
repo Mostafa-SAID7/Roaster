@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { HeroComponent } from './features/hero/hero.component';
 import { StoryComponent } from './features/story/story.component';
@@ -44,7 +44,9 @@ import { OrderTrackingComponent } from './features/order-tracking/order-tracking
     <app-order-tracking></app-order-tracking>
   `,
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+  private revealObserver?: IntersectionObserver;
+
   constructor(private titleService: Title, private metaService: Meta) {}
 
   ngOnInit(): void {
@@ -59,5 +61,22 @@ export class AppComponent implements OnInit {
     this.metaService.updateTag({ name: 'twitter:title', content: 'MERZY | Specialty Coffee & Bakery in Alexandria' });
     this.metaService.updateTag({ name: 'twitter:description', content: 'Good coffee. Fresh bakes. Alexandria by the sea.' });
     this.metaService.updateTag({ name: 'twitter:image', content: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop' });
+  }
+
+  ngAfterViewInit(): void {
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('motion-ready');
+    this.revealObserver = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('is-visible');
+        this.revealObserver?.unobserve(entry.target);
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll<HTMLElement>('.reveal').forEach(element => this.revealObserver?.observe(element));
+  }
+
+  ngOnDestroy(): void {
+    this.revealObserver?.disconnect();
   }
 }
