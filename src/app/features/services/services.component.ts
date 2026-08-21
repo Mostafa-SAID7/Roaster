@@ -112,8 +112,11 @@ import { CommonModule } from '@angular/common';
 
       <!-- Divider Coffee Beans Banner -->
       <div class="mt-20 lg:mt-28 relative h-48 rounded-[2rem] overflow-hidden border border-primary-400/10">
-        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1200&auto=format&fit=crop"
+        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=70&w=960&auto=format&fit=crop"
              alt="Coffee beans spread"
+             width="960" height="192"
+             sizes="(max-width: 1024px) 100vw, 960px"
+             decoding="async"
              loading="lazy"
              class="w-full h-full object-cover object-center animate-imageSlowZoom">
         <div class="absolute inset-0 bg-gradient-to-r from-dark-900 via-dark-900/40 to-dark-900 pointer-events-none"></div>

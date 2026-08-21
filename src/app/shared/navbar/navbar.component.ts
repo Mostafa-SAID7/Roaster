@@ -110,6 +110,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   cartCount = 0;
   private observer: IntersectionObserver | null = null;
   private cartSub!: Subscription;
+  private scrollFrame: number | null = null;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -119,7 +120,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.setupScrollSpy();
-      window.addEventListener('scroll', this.onScroll);
+      window.addEventListener('scroll', this.onScroll, { passive: true });
     }
     this.cartSub = this.cartService.items.subscribe(
       () => this.cartCount = this.cartService.totalCount
@@ -130,6 +131,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (this.observer) this.observer.disconnect();
     if (isPlatformBrowser(this.platformId)) {
       window.removeEventListener('scroll', this.onScroll);
+      if (this.scrollFrame !== null) cancelAnimationFrame(this.scrollFrame);
     }
     this.cartSub?.unsubscribe();
   }
@@ -141,7 +143,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   private onScroll = (): void => {
-    this.isScrolled = window.scrollY > 50;
+    if (this.scrollFrame !== null) return;
+
+    this.scrollFrame = requestAnimationFrame(() => {
+      this.isScrolled = window.scrollY > 50;
+      this.scrollFrame = null;
+    });
   }
 
   private setupScrollSpy(): void {

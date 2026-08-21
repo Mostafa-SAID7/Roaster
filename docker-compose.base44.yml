@@ -1,0 +1,36 @@
+services:
+  web:
+    image: node:22
+    working_dir: /app
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+    ports:
+      - "3000:4200"
+    environment:
+      - BASE44_PUBLIC_HOST_SUFFIX=${BASE44_PUBLIC_HOST_SUFFIX}
+    command: >
+      sh -c "npm install --no-audit --no-fund &&
+             npx ng serve --host 0.0.0.0 --port 4200 --disable-host-check --poll 1000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:4200/', r => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 15s
+      timeout: 10s
+      retries: 20
+      start_period: 120s
+
+  # Auto-pulls new commits from origin/main so the preview stays in sync
+  # with pushes to your GitHub repository. HMR reflects changes live.
+  git-sync:
+    image: node:22
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      - SYNC_BRANCH=main
+      - SYNC_INTERVAL=20
+    command: ["sh", "scripts/git-sync.sh"]
+    restart: unless-stopped
+
+volumes:
+  node_modules:
