@@ -26,10 +26,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isScrolled = false;
   cartCount = 0;
   private readonly sectionIds = ['hero', 'menu', 'coffee', 'bakery', 'experience', 'location'];
-  private observed = new Set<string>();
-  private visibleSections = new Map<string, number>();
-  private observer: IntersectionObserver | null = null;
-  private mutationObserver: MutationObserver | null = null;
   private scrollFrame: number | null = null;
   private cartSub?: Subscription;
 
@@ -37,17 +33,17 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.setupScrollSpy();
+      this.syncActiveSectionFromHash();
+      window.addEventListener('hashchange', this.onHashChange);
       window.addEventListener('scroll', this.onScroll, { passive: true });
       this.cartSub = this.cartService.items.subscribe(items => { this.cartCount = items.reduce((sum, i) => sum + i.quantity, 0); this.cdr.markForCheck(); });
     }
   }
 
   ngOnDestroy(): void {
-    this.observer?.disconnect();
-    this.mutationObserver?.disconnect();
     this.cartSub?.unsubscribe();
     if (isPlatformBrowser(this.platformId)) {
+      window.removeEventListener('hashchange', this.onHashChange);
       window.removeEventListener('scroll', this.onScroll);
       if (this.scrollFrame !== null) cancelAnimationFrame(this.scrollFrame);
     }
@@ -55,10 +51,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   toggleMobileMenu(): void { this.mobileMenuOpen = !this.mobileMenuOpen; }
   openCart(): void { this.cartService.open(); }
-  private onScroll = (): void => { if (this.scrollFrame !== null) return; this.scrollFrame = requestAnimationFrame(() => { this.isScrolled = window.scrollY > 50; this.scrollFrame = null; this.cdr.markForCheck(); }); };
-  private setupScrollSpy(): void { this.observer = new IntersectionObserver(entries => { for (const entry of entries) { if (entry.isIntersecting) this.visibleSections.set(entry.target.id, entry.intersectionRatio); else this.visibleSections.delete(entry.target.id); } const visible = [...this.visibleSections.entries()].sort((a, b) => b[1] - a[1])[0]; if (visible) { this.activeSection = visible[0]; this.cdr.markForCheck(); } }, { rootMargin: '-20% 0px -70% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] }); this.observeSections(); this.mutationObserver = new MutationObserver(() => this.observeSections()); this.mutationObserver.observe(document.body, { childList: true, subtree: true }); }
-  private observeSections(): void { for (const id of this.sectionIds) { if (this.observed.has(id)) continue; const element = document.getElementById(id); if (element) { this.observed.add(id); this.observer?.observe(element); } } if (this.observed.size === this.sectionIds.length) { this.mutationObserver?.disconnect(); this.mutationObserver = null; } }
-  scrollToSection(id: string): void { this.mobileMenuOpen = false; this.activeSection = id; this.cdr.markForCheck(); this.motion.scrollToId(id); }
+  private onScroll = (): void => { if (this.scrollFrame !== null) return; this.scrollFrame = requestAnimationFrame(() => { this.isScrolled = window.scrollY > 50; this.syncActiveSectionFromScroll(); this.scrollFrame = null; this.cdr.markForCheck(); }); };
+  private onHashChange = (): void => { this.syncActiveSectionFromHash(); this.cdr.markForCheck(); };
+  private syncActiveSectionFromHash(): void { if (!isPlatformBrowser(this.platformId)) return; const hash = decodeURIComponent(window.location.hash.slice(1)); if (this.sectionIds.includes(hash)) this.activeSection = hash; }
+  private syncActiveSectionFromScroll(): void { if (!isPlatformBrowser(this.platformId)) return; const headerOffset = 160; const active = this.sectionIds.map(id => ({ id, top: document.getElementById(id)?.getBoundingClientRect().top ?? Number.NEGATIVE_INFINITY })).filter(section => section.top <= headerOffset).sort((a, b) => b.top - a.top)[0]; if (active && active.id !== this.activeSection) this.activeSection = active.id; }
+  scrollToSection(id: string): void { this.mobileMenuOpen = false; this.activeSection = id; if (isPlatformBrowser(this.platformId)) window.history.replaceState(null, '', '#' + id); this.cdr.markForCheck(); this.motion.scrollToId(id); }
   navLinkClass(section: string): string { return this.activeSection === section ? 'bg-[#2b1d19] text-[#fffdf8]' : 'text-[#211815]/60 hover:bg-white hover:text-[#8f4f37]'; }
   mobileNavLinkClass(section: string): string { return this.activeSection === section ? 'bg-[#2b1d19] text-[#fffdf8]' : 'text-[#211815]/60 hover:bg-[#f8f4ed] hover:text-[#8f4f37]'; }
 }

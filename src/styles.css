@@ -28,7 +28,7 @@ html {
   background: var(--merzy-paper);
   color: var(--merzy-ink);
   scroll-behavior: smooth;
-  scroll-padding-top: 110px;
+  scroll-padding-top: 120px;
   overscroll-behavior-x: none;
   scrollbar-gutter: stable;
 }
