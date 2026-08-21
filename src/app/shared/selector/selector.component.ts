@@ -11,7 +11,7 @@ export interface SelectorOption {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="relative w-full">
+    <div class="relative z-[230] w-full">
       <button type="button" (click)="toggleDropdown($event)" (keydown)="onTriggerKeydown($event)" [attr.aria-expanded]="isOpen" aria-haspopup="listbox" [ngClass]="{'border-primary-400': isOpen, 'shadow-lg': isOpen, 'shadow-primary-400/20': isOpen}" class="w-full h-14 px-5 bg-gradient-to-r from-dark-800 to-dark-900 border border-primary-400/40 rounded-xl text-cream font-bold uppercase tracking-widest text-sm flex items-center justify-between hover:border-primary-400/70 transition-all duration-300 hover:shadow-lg hover:shadow-primary-400/10 focus:outline-none focus:border-primary-400 focus:shadow-lg focus:shadow-primary-400/20">
         <span [ngClass]="{'text-cream/60': !selectedLabel}">{{ selectedLabel || placeholder }}</span>
         <svg class="w-5 h-5 text-primary-400 transition-transform duration-300" [class.rotate-180]="isOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -19,7 +19,7 @@ export interface SelectorOption {
         </svg>
       </button>
 
-      <div *ngIf="isOpen" role="listbox" [attr.aria-label]="placeholder" class="absolute top-full left-0 right-0 mt-2 bg-dark-800 border border-primary-400/40 rounded-xl shadow-2xl shadow-dark-900/50 z-50 overflow-hidden animate-slideInDown" (click)="$event.stopPropagation()">
+      <div *ngIf="isOpen" role="listbox" [attr.aria-label]="placeholder" class="absolute top-full left-0 right-0 mt-2 bg-dark-800 border border-primary-400/40 rounded-xl shadow-2xl shadow-dark-900/50 z-[240] overflow-hidden animate-slideInDown" (click)="$event.stopPropagation()">
         <div class="max-h-64 overflow-y-auto no-scrollbar">
           <button *ngFor="let option of options; let i = index" type="button" role="option" [attr.aria-selected]="option.value === selectedValue" (click)="selectOption(option)" (keydown)="onOptionKeydown($event, option)" [ngClass]="{'bg-primary-400/25': option.value === selectedValue, 'text-primary-400': option.value === selectedValue}" [style.animation-delay]="(i * 50) + 'ms'" class="w-full px-5 py-3.5 text-left text-cream font-bold uppercase tracking-widest text-sm hover:bg-primary-400/15 transition-all duration-200 flex items-center justify-between group">
             <span>{{ option.label }}</span>
