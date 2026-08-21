@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MotionService } from '../../core/services/motion.service';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <footer id="shop" class="mt-16 sm:mt-24 relative overflow-hidden reveal">
 
@@ -13,7 +15,8 @@ import { CommonModule } from '@angular/common';
         <!-- Blurred background coffee image -->
         <div class="absolute inset-0 opacity-10 pointer-events-none">
           <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop"
-               alt="" loading="lazy" class="w-full h-full object-cover object-center">
+               alt="" loading="lazy" width="1200" height="200"
+               class="w-full h-full object-cover object-center">
         </div>
         <div class="absolute inset-0 bg-gradient-to-b from-dark-900/60 via-dark-900/80 to-dark-900 pointer-events-none"></div>
 
@@ -146,6 +149,8 @@ import { CommonModule } from '@angular/common';
 export class FooterComponent {
   currentYear = new Date().getFullYear();
 
+  constructor(private motion: MotionService) {}
+
   socials = [
     {
       label: 'Facebook', href: '#',
@@ -179,6 +184,6 @@ export class FooterComponent {
   ];
 
   scrollToTop(): void {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.motion.scrollToTop();
   }
 }

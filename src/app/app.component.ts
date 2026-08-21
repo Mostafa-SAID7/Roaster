@@ -74,27 +74,27 @@ import { CartService } from './core/services/cart.service';
       @defer (on idle) {
         <app-story></app-story>
       } @placeholder {
-        <div class="section-placeholder"></div>
+        <div class="section-placeholder ph-story"></div>
       }
       @defer (on idle) {
         <app-services></app-services>
       } @placeholder {
-        <div class="section-placeholder"></div>
+        <div class="section-placeholder ph-services"></div>
       }
       @defer (on idle) {
         <app-process></app-process>
       } @placeholder {
-        <div class="section-placeholder"></div>
+        <div class="section-placeholder ph-process"></div>
       }
       @defer (on idle) {
         <app-menu></app-menu>
       } @placeholder {
-        <div class="section-placeholder"></div>
+        <div class="section-placeholder ph-menu"></div>
       }
       @defer (on idle) {
         <app-testimonials></app-testimonials>
       } @placeholder {
-        <div class="section-placeholder"></div>
+        <div class="section-placeholder ph-testimonials"></div>
       }
     </div>
     <app-footer></app-footer>

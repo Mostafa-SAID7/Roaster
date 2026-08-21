@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -12,19 +12,27 @@ type CheckoutStep = 'cart' | 'checkout' | 'confirmation';
   selector: 'app-cart',
   standalone: true,
   imports: [CommonModule, FormsModule, SelectorComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Overlay -->
     <div *ngIf="isOpen"
-         class="fixed inset-0 z-[200] bg-dark-900/60 backdrop-blur-sm"
+         class="fixed inset-0 z-[200] bg-dark-900/70"
          (click)="close()">
     </div>
 
     <!-- Sidebar Drawer -->
-    <div class="fixed top-0 right-0 h-full z-[210] w-full max-w-md flex flex-col
+    <div #drawer
+         class="fixed top-0 right-0 h-full z-[210] w-full max-w-md flex flex-col
                 bg-dark-900 border-l border-primary-400/20 shadow-2xl
                 transition-transform duration-500 ease-in-out"
+         role="dialog"
+         aria-modal="true"
+         aria-label="Shopping cart and checkout"
+         [attr.inert]="isOpen ? null : ''"
+         [attr.aria-hidden]="!isOpen"
          [class.translate-x-0]="isOpen"
-         [class.translate-x-full]="!isOpen">
+         [class.translate-x-full]="!isOpen"
+         (keydown)="onDrawerKeydown($event)">
 
       <!-- ── HEADER ─────────────────────────────── -->
       <div class="flex items-center justify-between px-6 py-5 border-b border-primary-400/10">
@@ -73,7 +81,7 @@ type CheckoutStep = 'cart' | 'checkout' | 'confirmation';
                       hover:border-primary-400/30 transition-all duration-300 group">
             <!-- Thumb -->
             <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border border-primary-400/10">
-              <img [src]="item.image" [alt]="item.name"
+              <img [src]="item.image" [alt]="item.name" width="64" height="64" loading="lazy"
                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
             </div>
             <!-- Info -->
@@ -296,18 +304,26 @@ export class CartComponent implements OnInit, OnDestroy {
   };
 
   private subs: Subscription[] = [];
+  @ViewChild('drawer') private drawerRef?: ElementRef<HTMLElement>;
+  private previouslyFocused: HTMLElement | null = null;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.subs.push(
-      this.cartService.items.subscribe(items => this.items = items),
-      this.cartService.isOpen.subscribe(open => this.isOpen = open),
+      this.cartService.items.subscribe(items => { this.items = items; this.cdr.markForCheck(); }),
+      this.cartService.isOpen.subscribe(open => {
+        this.isOpen = open;
+        open ? this.onOpen() : this.onClose();
+        this.cdr.markForCheck();
+      }),
     );
   }
 
   ngOnDestroy(): void {
     this.subs.forEach(s => s.unsubscribe());
+    // Ensure scroll is unlocked if destroyed while open.
+    document.body.style.overflow = '';
   }
 
   get subtotal(): number { return this.cartService.subtotal; }
@@ -346,5 +362,48 @@ export class CartComponent implements OnInit, OnDestroy {
     this.selectedIsland = '';
     this.form = { name: '', phone: '', notes: '' };
     this.cartService.close();
+  }
+
+  onDrawerKeydown(event: KeyboardEvent): void {
+    if (!this.isOpen) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.close();
+      return;
+    }
+    if (event.key === 'Tab') {
+      const focusables = this.focusableElements();
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  private onOpen(): void {
+    this.previouslyFocused = document.activeElement as HTMLElement | null;
+    document.body.style.overflow = 'hidden';
+    // Focus the first control once the drawer is interactive (inert removed).
+    setTimeout(() => this.focusableElements()[0]?.focus(), 60);
+  }
+
+  private onClose(): void {
+    document.body.style.overflow = '';
+    this.previouslyFocused?.focus();
+    this.previouslyFocused = null;
+  }
+
+  private focusableElements(): HTMLElement[] {
+    const drawer = this.drawerRef?.nativeElement;
+    if (!drawer) return [];
+    return Array.from(drawer.querySelectorAll<HTMLElement>(
+      'button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])'
+    )).filter(el => !el.hasAttribute('disabled') && el.offsetParent !== null);
   }
 }
