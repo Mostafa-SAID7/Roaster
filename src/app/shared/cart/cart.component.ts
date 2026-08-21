@@ -50,7 +50,7 @@ type CheckoutStep = 'cart' | 'checkout' | 'confirmation';
       </div>
 
       <!-- ── STEP 1: CART ───────────────────────── -->
-      <div *ngIf="step === 'cart'" class="flex flex-col flex-1 overflow-hidden">
+      <div *ngIf="step === 'cart'" class="flex flex-col flex-1 overflow-visible">
         <!-- Empty state -->
         <div *ngIf="items.length === 0" class="flex-1 flex flex-col items-center justify-center gap-6 px-8 text-center">
           <div class="w-20 h-20 rounded-full bg-dark-800 border border-primary-400/20 flex items-center justify-center">

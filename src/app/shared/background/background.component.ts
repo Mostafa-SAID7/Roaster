@@ -23,15 +23,26 @@ declare global {
     <div class="fixed inset-0 w-full h-full -z-5 pointer-events-none bg-gradient-to-b from-dark-900/10 via-transparent to-dark-900/60"></div>
   `,
 })
-export class BackgroundComponent implements OnInit, OnDestroy {
-  private scriptId = 'unicorn-studio-script';
+export class BackgroundComponent implements OnInit {
+  private readonly scriptId = 'unicorn-studio-script';
 
   ngOnInit(): void {
-    this.initUnicornStudio();
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      this.loadWhenIdle();
+    }
   }
 
-  ngOnDestroy(): void {
-    // Optional: Cleanup if UnicornStudio provides a destroy method
+  private loadWhenIdle(): void {
+    const load = () => this.initUnicornStudio();
+    const requestIdleCallback = (window as Window & {
+      requestIdleCallback?: (callback: () => void, options: { timeout: number }) => number;
+    }).requestIdleCallback;
+
+    if (requestIdleCallback) {
+      requestIdleCallback(load, { timeout: 3000 });
+    } else {
+      window.setTimeout(load, 1500);
+    }
   }
 
   private initUnicornStudio(): void {
@@ -56,10 +67,7 @@ export class BackgroundComponent implements OnInit, OnDestroy {
   private initPlugin(): void {
     const u = window.UnicornStudio;
     if (u && u.init) {
-      // Small delay to ensure the DOM element with data-us-project is available
-      setTimeout(() => {
-        u.init();
-      }, 100);
+      window.setTimeout(() => u.init(), 100);
     }
   }
 }
