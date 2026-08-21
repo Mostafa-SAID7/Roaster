@@ -1,4 +1,4 @@
-# Island Roaster - Best Practices Guide
+# MERZY - Best Practices Guide
 
 ## Angular Best Practices
 

@@ -1,4 +1,4 @@
-# Island Roaster - Setup & Development Guide
+# MERZY - Setup & Development Guide
 
 ## Prerequisites
 
