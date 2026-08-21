@@ -1,6 +1,6 @@
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CartService } from '../../core/services/cart.service';
 import { CartItem } from '../../core/models/cart.model';
 import { OrderService } from '../../core/services/order.service';
@@ -12,69 +12,33 @@ import { OrderService } from '../../core/services/order.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (isOpen) {
-      <div class="fixed inset-0 z-[200] flex justify-end">
-        <div class="absolute inset-0 bg-dark-900/80 backdrop-blur-sm animate-fadeIn" (click)="close()"></div>
-        <div class="relative w-full max-w-md bg-dark-900 border-l border-primary-400/20 h-full flex flex-col shadow-2xl animate-slideInRight">
-          <!-- Header -->
-          <div class="flex items-center justify-between px-6 py-5 border-b border-primary-400/10">
-            <h2 class="text-2xl font-macondo text-cream tracking-tight">Your Order</h2>
-            <button (click)="close()" aria-label="Close cart" class="w-10 h-10 rounded-full border border-primary-400/20 flex items-center justify-center text-primary-400 hover:bg-dark-800 hover:border-primary-400/40 transition-colors">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-            </button>
+      <div class="fixed inset-0 z-[200] flex justify-end" role="presentation">
+        <div class="absolute inset-0 bg-[#211815]/70 backdrop-blur-sm animate-fadeIn" (click)="close()"></div>
+        <aside class="relative flex h-dvh w-full max-w-lg flex-col overflow-hidden border-l border-white/10 bg-[#2b1d19] text-[#f8f4ed] shadow-2xl animate-slideInRight" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+          <div class="flex shrink-0 items-center justify-between border-b border-white/10 px-5 py-5 sm:px-7">
+            <div><p class="eyebrow mb-2">MERZY pickup</p><h2 id="cart-title" class="text-2xl tracking-tight text-[#fffdf8]">Your Order</h2></div>
+            <button (click)="close()" aria-label="Close cart" class="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-[#d89a75] transition-colors hover:border-[#d89a75] hover:bg-white/10"><svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
           </div>
-
-          <!-- Items -->
-          <div class="flex-1 overflow-y-auto px-6 py-4 no-scrollbar">
+          <div class="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-7">
             @if (items.length === 0) {
-              <div class="flex flex-col items-center justify-center h-full text-center gap-4">
-                <div class="w-16 h-16 rounded-full bg-dark-800 border border-primary-400/20 flex items-center justify-center">
-                  <svg class="w-8 h-8 text-primary-400/50" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                </div>
-                <p class="text-cream/50 text-sm">Your cart is empty.<br>Add something from the menu.</p>
-              </div>
+              <div class="flex min-h-full flex-col items-center justify-center gap-4 text-center"><div class="flex h-16 w-16 items-center justify-center rounded-full border border-[#d89a75]/25 bg-white/5 text-[#d89a75]"><svg class="h-8 w-8" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg></div><p class="text-sm text-white/55">Your cart is empty.<br>Add something from the MERZY menu.</p></div>
             } @else {
-              <div class="space-y-4">
+              <div class="space-y-3">
                 @for (item of items; track item.id) {
-                  <div class="flex items-center gap-4 bg-dark-800/50 border border-primary-400/10 rounded-2xl p-4">
-                    <div class="flex-1 min-w-0">
-                      <h3 class="text-cream font-bold text-sm uppercase tracking-wider truncate">{{ item.name }}</h3>
-                      <p class="text-primary-400 text-sm mt-1">{{ item.price }} EGP</p>
-                    </div>
-                    <div class="flex items-center gap-2 bg-dark-900 rounded-full border border-primary-400/20 px-2 py-1">
-                      <button (click)="decreaseQty(item.id)" aria-label="Decrease quantity" class="w-7 h-7 flex items-center justify-center text-primary-400 hover:text-cream transition-colors">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/></svg>
-                      </button>
-                      <span class="text-cream font-bold text-sm w-6 text-center">{{ item.quantity }}</span>
-                      <button (click)="increaseQty(item.id)" aria-label="Increase quantity" class="w-7 h-7 flex items-center justify-center text-primary-400 hover:text-cream transition-colors">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                      </button>
-                    </div>
-                    <button (click)="removeItem(item.id)" aria-label="Remove item" class="w-8 h-8 flex items-center justify-center text-cream/30 hover:text-red-400 transition-colors">
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22"/></svg>
-                    </button>
-                  </div>
+                  <div class="rounded-2xl border border-white/10 bg-white/[0.05] p-4"><div class="flex items-start justify-between gap-3"><div class="min-w-0"><h3 class="truncate text-sm font-bold uppercase tracking-wider text-[#fffdf8]">{{ item.name }}</h3><p class="mt-1 text-sm text-[#d89a75]">{{ item.price }} EGP each</p></div><button (click)="removeItem(item.id)" aria-label="Remove item" class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white/35 transition-colors hover:bg-white/10 hover:text-[#d89a75]"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22"/></svg></button></div><div class="mt-4 flex items-center justify-between"><span class="text-sm text-white/55">{{ item.price * item.quantity }} EGP</span><div class="flex items-center gap-2 rounded-full border border-white/15 bg-[#211815] px-2 py-1"><button (click)="decreaseQty(item.id)" [attr.aria-label]="'Decrease ' + item.name + ' quantity'" class="flex h-7 w-7 items-center justify-center text-[#d89a75] transition-colors hover:text-white"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/></svg></button><span class="w-6 text-center text-sm font-bold text-white">{{ item.quantity }}</span><button (click)="increaseQty(item.id)" [attr.aria-label]="'Increase ' + item.name + ' quantity'" class="flex h-7 w-7 items-center justify-center text-[#d89a75] transition-colors hover:text-white"><svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg></button></div></div></div>
                 }
               </div>
             }
           </div>
-
-          <!-- Footer -->
           @if (items.length > 0) {
-            <div class="px-6 py-5 border-t border-primary-400/10 space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="text-cream/60 text-sm uppercase tracking-widest">Subtotal</span>
-                <span class="text-cream text-2xl font-macondo">{{ subtotal }} <span class="text-primary-400 text-sm font-exo">EGP</span></span>
-              </div>
-              <button (click)="checkout()" class="btn-primary w-full justify-center text-sm py-3">
-                <span class="font-bold uppercase tracking-widest">Place Order</span>
-                <span class="w-10 h-10 bg-dark-900 rounded-full flex items-center justify-center">
-                  <svg class="w-5 h-5 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                </span>
-              </button>
-              <p class="text-cream/40 text-xs text-center">Pay in store · Pickup at MERZY</p>
+            <div class="shrink-0 space-y-4 border-t border-white/10 bg-[#211815]/55 px-5 py-5 sm:px-7 sm:py-6">
+              <div class="rounded-2xl border border-white/10 bg-white/[0.04] p-4"><div class="flex items-center justify-between"><span class="text-xs font-bold uppercase tracking-[0.18em] text-white/55">Pickup</span><span class="text-xs font-bold uppercase tracking-[0.18em] text-[#d89a75]">At MERZY</span></div><p class="mt-2 text-sm leading-relaxed text-white/60">Your order will be prepared for pickup at the Bibliotheca Alexandrina services area.</p></div>
+              <fieldset class="rounded-2xl border border-white/10 bg-white/[0.04] p-4"><legend class="px-1 text-xs font-bold uppercase tracking-[0.18em] text-white/55">Payment</legend><label class="mt-2 flex items-center gap-3 text-sm text-white"><input type="radio" name="payment" checked disabled class="accent-[#d89a75]"> Pay in store</label><p class="mt-2 text-xs leading-relaxed text-white/45">Payment is completed at the MERZY counter. No card details are collected here.</p></fieldset>
+              <div class="flex items-center justify-between"><span class="text-xs font-bold uppercase tracking-[0.18em] text-white/55">Subtotal</span><span class="text-2xl text-[#fffdf8]">{{ subtotal }} <span class="font-exo text-sm text-[#d89a75]">EGP</span></span></div>
+              <button (click)="checkout()" class="btn-primary w-full justify-center py-3 text-sm"><span class="px-2 font-bold uppercase tracking-widest">Place Order</span><span class="flex h-10 w-10 items-center justify-center rounded-full bg-[#211815]"><svg class="h-5 w-5 text-[#d89a75]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></span></button>
             </div>
           }
-        </div>
+        </aside>
       </div>
     }
   `,
@@ -85,19 +49,17 @@ export class CartComponent implements OnInit, OnDestroy {
   subtotal = 0;
   private sub = new Subscription();
 
-  constructor(private cartService: CartService, private orderService: OrderService) {}
+  constructor(private cartService: CartService, private orderService: OrderService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.sub.add(this.cartService.isOpen.subscribe(open => { this.isOpen = open; }));
-    this.sub.add(this.cartService.items.subscribe(items => {
-      this.items = items;
-      this.subtotal = this.cartService.subtotal;
-    }));
+    this.sub.add(this.cartService.isOpen.subscribe(open => { this.isOpen = open; this.cdr.markForCheck(); }));
+    this.sub.add(this.cartService.items.subscribe(items => { this.items = items; this.subtotal = this.cartService.subtotal; this.cdr.markForCheck(); }));
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
+  ngOnDestroy(): void { this.sub.unsubscribe(); }
+
+  @HostListener('document:keydown.escape')
+  handleEscape(): void { if (this.isOpen) this.close(); }
 
   close(): void { this.cartService.close(); }
   increaseQty(id: string): void { this.cartService.updateQty(id, (this.items.find(i => i.id === id)?.quantity ?? 0) + 1); }

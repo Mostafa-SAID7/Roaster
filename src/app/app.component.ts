@@ -31,12 +31,12 @@ import { OrderTrackingComponent } from './features/order-tracking/order-tracking
   template: `
     <app-background></app-background>
     <app-navbar></app-navbar>
-    <main class="site-main relative z-10 max-w-[1440px] mx-auto px-4 pb-4 sm:px-6 lg:px-10 lg:pb-10">
+    <main class="site-main relative z-10 mx-auto max-w-[1440px] px-4 pb-4 pt-[6.75rem] sm:px-6 sm:pt-[7.5rem] lg:px-10 lg:pb-10 lg:pt-32">
       <app-hero></app-hero>
+      <app-menu></app-menu>
       <app-story></app-story>
       <app-services></app-services>
       <app-process></app-process>
-      <app-menu></app-menu>
       <app-testimonials></app-testimonials>
     </main>
     <app-footer></app-footer>

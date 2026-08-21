@@ -15,7 +15,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
           <a href="#find-merzy" class="btn-primary group w-max text-sm"><span class="px-3 font-bold uppercase tracking-widest">Find MERZY</span><span class="flex h-10 w-10 items-center justify-center rounded-full bg-[#211815] group-hover:translate-x-1"><svg class="h-5 w-5 text-[#d89a75]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span></a>
         </div>
         <div class="relative min-h-[26rem] lg:min-h-0">
-          <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7454?q=80&w=1200&auto=format&fit=crop" alt="Mediterranean atmosphere in Alexandria" width="1200" height="900" loading="lazy" class="absolute inset-0 h-full w-full object-cover">
+          <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1200&auto=format&fit=crop" alt="Mediterranean coastline atmosphere near Alexandria" width="1200" height="900" loading="lazy" class="absolute inset-0 h-full w-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-r from-[#2b1d19]/45 via-transparent to-transparent"></div>
           <div class="absolute bottom-7 left-7"><div class="glass-effect rounded-xl px-4 py-3"><span class="text-xs font-bold uppercase tracking-widest text-[#8f4f37]">Alexandria, Egypt</span><p class="mt-1 text-sm text-[#211815]">By the Mediterranean</p></div></div>
         </div>

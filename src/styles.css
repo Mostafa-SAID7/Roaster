@@ -1,4 +1,5 @@
 @tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -55,7 +56,7 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: var(--merzy-copper); }
 * { scrollbar-color: var(--merzy-coffee) var(--merzy-paper); scrollbar-width: thin; }
 
-section { scroll-margin-top: 110px; }
+section, #hero, #bakery, #find-merzy { scroll-margin-top: 120px; }
 
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
@@ -119,6 +120,8 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--merzy-copper); 
 }
 
 .hero-section {
+  min-height: clamp(34rem, calc(100svh - 9rem), 48rem);
+  scroll-margin-top: 120px;
   background: var(--merzy-espresso);
   border: 1px solid rgba(255, 253, 248, 0.12);
   border-radius: 1.5rem;
@@ -142,7 +145,8 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--merzy-copper); 
 
 .section-heading { max-width: 44rem; }
 .section-heading p { color: rgba(33, 24, 21, 0.64); line-height: 1.8; }
-.services-section, .experience-section, .menu-section { padding-top: clamp(5rem, 12vw, 10rem); }
+.services-section, .experience-section { padding-top: clamp(5rem, 12vw, 10rem); }
+.menu-section { padding-top: clamp(4rem, 8vw, 7rem); }
 .coffee-grid { max-width: 75rem; }
 .coffee-card { position: relative; overflow: hidden; min-height: 18rem; text-align: left; }
 .coffee-card::before { content: ""; position: absolute; right: -2.5rem; bottom: -3rem; width: 10rem; height: 10rem; border-radius: 50%; background: rgba(184, 111, 75, 0.1); }
@@ -194,7 +198,11 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--merzy-copper); 
 @keyframes subtleGlow { 0%, 100% { box-shadow: 0 0 20px rgba(184, 111, 75, 0.08); } 50% { box-shadow: 0 0 40px rgba(184, 111, 75, 0.18); } }
 
 @media (max-width: 767px) {
-  .hero-section { border-radius: 1rem; }
+  .hero-section { min-height: 0; border-radius: 1rem; }
+  .site-main { padding-top: 6.25rem; }
+  .hero-copy { min-height: 31rem; }
+  .hero-media { min-height: 20rem; }
+  .hero-media::after { background: linear-gradient(145deg, rgba(33, 24, 21, 0.08), transparent 55%, rgba(53, 104, 121, 0.2)); }
   .hero-copy .hero-heading { max-width: 11ch; }
   .experience-card:nth-child(n) { margin-top: 0; }
   .bakery-panel { min-height: 38rem; }

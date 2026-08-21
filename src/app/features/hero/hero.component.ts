@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block' },
   template: `
-    <header id="hero" class="hero-section relative mt-3 flex min-h-[min(820px,calc(100vh-1.5rem))] w-full flex-col overflow-hidden reveal active">
+    <header id="hero" class="hero-section relative flex w-full flex-col overflow-hidden reveal active">
       <div class="relative z-10 grid flex-1 grid-cols-1 lg:grid-cols-[0.9fr_1.1fr]">
         <div class="hero-copy flex flex-col justify-center px-7 py-20 sm:px-12 sm:py-24 lg:px-16 xl:px-24 lg:py-16">
           <span class="hero-eyebrow reveal reveal-delay-1 mb-6 animate-slideInLeft">Specialty Coffee &amp; Bakery · Alexandria</span>
