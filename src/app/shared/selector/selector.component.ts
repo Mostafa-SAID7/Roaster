@@ -35,7 +35,7 @@ export interface SelectorOption {
 })
 export class SelectorComponent {
   @Input() options: SelectorOption[] = [];
-  @Input() placeholder: string = 'Select Island...';
+  @Input() placeholder: string = 'Select an option...';
   @Input() selectedValue: string = '';
   @Output() selectionChange = new EventEmitter<string>();
 

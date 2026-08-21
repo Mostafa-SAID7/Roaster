@@ -1,12 +1,15 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
       colors: {
-        primary: { 50: '#fcfaf6', 100: '#f7f1e8', 200: '#efe1cf', 300: '#e7c99f', 400: '#e7b977', 500: '#cf9651', 600: '#b9783d', 700: '#915a2e', 800: '#6b4227', 900: '#4c2d1c' },
-        dark: { 50: '#f4f6f5', 100: '#dce2e0', 200: '#c1cac7', 300: '#9da9a5', 400: '#7a8984', 500: '#5e6e69', 600: '#465651', 700: '#31413d', 800: '#202e2b', 900: '#13211f', 950: '#0b1514' },
-        cream: '#f7f1e8',
+        primary: { 50: '#fff8f2', 100: '#f9e9dd', 200: '#f1cfbd', 300: '#e4ad8e', 400: '#d08a67', 500: '#b86f4b', 600: '#9f5b3e', 700: '#8f4f37', 800: '#6d392b', 900: '#4a3025' },
+        dark: { 50: '#f7f3ee', 100: '#e8ded2', 200: '#d1c0b0', 300: '#ad9888', 400: '#8b7567', 500: '#6e584c', 600: '#554039', 700: '#402d27', 800: '#33231f', 900: '#2b1d19', 950: '#211815' },
+        cream: '#f8f4ed',
+        paper: '#f8f4ed',
+        ivory: '#fffdf8',
+        sand: '#d8c5aa',
+        mediterranean: '#356879',
       },
       fontFamily: { macondo: ['Macondo', 'cursive'], exo: ['"Exo 2"', 'sans-serif'] },
       animation: { fadeIn: 'fadeIn 0.6s ease-out', slideInUp: 'slideInUp 0.6s ease-out forwards', slideInDown: 'slideInDown 0.6s ease-out forwards', slideInLeft: 'slideInLeft 0.6s ease-out forwards', slideInRight: 'slideInRight 0.6s ease-out forwards', scaleIn: 'scaleIn 0.6s ease-out', bounce: 'bounce 2s infinite', pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite', float: 'float 3s ease-in-out infinite' },

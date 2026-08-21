@@ -1,4 +1,4 @@
-# Island Roaster - Quick Start Guide
+# MERZY - Quick Start Guide
 
 ## 🚀 Get Started in 5 Minutes
 
@@ -20,7 +20,7 @@ Edit files in `src/app/` and see changes instantly.
 ## 📁 Project Structure at a Glance
 
 ```
-island-roaster/
+merzy/
 ├── src/
 │   ├── app/
 │   │   ├── core/              # Services & models
@@ -152,7 +152,7 @@ export class MyComponent {
 npm run build
 ```
 
-Output will be in `dist/island-roaster/`
+Output will be in `dist/merzy/`
 
 ### Deploy to Vercel
 ```bash
@@ -163,7 +163,7 @@ vercel
 ### Deploy to Netlify
 ```bash
 npm install -g netlify-cli
-netlify deploy --prod --dir=dist/island-roaster
+netlify deploy --prod --dir=dist/merzy
 ```
 
 ## 🐛 Debugging
@@ -177,7 +177,7 @@ ng serve --source-map
 ```bash
 npm run build -- --stats-json
 npm install -g webpack-bundle-analyzer
-webpack-bundle-analyzer dist/island-roaster/stats.json
+webpack-bundle-analyzer dist/merzy/stats.json
 ```
 
 ## 📚 Documentation Files

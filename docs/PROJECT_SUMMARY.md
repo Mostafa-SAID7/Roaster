@@ -1,8 +1,8 @@
-# Island Roaster - Project Summary
+# MERZY - Project Summary
 
 ## 📋 Overview
 
-Island Roaster is a premium Maldivian coffee brand website built with modern Angular best practices. The project showcases a beautiful, interactive experience for exploring specialty coffee products.
+MERZY is a premium Alexandrian coffee brand website built with modern Angular best practices. The project showcases a beautiful, interactive experience for exploring specialty coffee products.
 
 ## ✨ Features Implemented
 
@@ -25,7 +25,7 @@ Island Roaster is a premium Maldivian coffee brand website built with modern Ang
 - **Visual Feedback**: Filter effects on images
 
 ### 4. Delivery Checker
-- Island selection dropdown
+- MERZY location dropdown
 - Real-time delivery information
 - Pricing display
 - Responsive form layout
@@ -129,7 +129,7 @@ npm run build
 ## 📁 File Structure
 
 ```
-island-roaster/
+merzy/
 ├── src/
 │   ├── app/
 │   │   ├── core/
@@ -304,11 +304,11 @@ For issues or questions:
 
 ## 📄 License
 
-This project is part of Island Roaster brand.
+This project is part of MERZY brand.
 
 ## 🎉 Conclusion
 
-Island Roaster is a modern, production-ready Angular application that demonstrates best practices in:
+MERZY is a modern, production-ready Angular application that demonstrates best practices in:
 - Component architecture
 - Reactive programming
 - Responsive design

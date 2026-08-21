@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { HeroComponent } from './features/hero/hero.component';
 import { StoryComponent } from './features/story/story.component';
@@ -9,6 +9,8 @@ import { TestimonialsComponent } from './features/testimonials/testimonials.comp
 import { FooterComponent } from './shared/footer/footer.component';
 import { BackgroundComponent } from './shared/background/background.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { CartComponent } from './shared/cart/cart.component';
+import { OrderTrackingComponent } from './features/order-tracking/order-tracking.component';
 
 @Component({
   selector: 'app-root',
@@ -23,42 +25,28 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     TestimonialsComponent,
     FooterComponent,
     NavbarComponent,
+    CartComponent,
+    OrderTrackingComponent,
   ],
   template: `
     <app-background></app-background>
     <app-navbar></app-navbar>
-    <main class="relative z-10 max-w-[1600px] mx-auto p-2 sm:p-4 lg:p-6 overflow-hidden">
+    <main class="site-main relative z-10 mx-auto max-w-[1440px] px-4 pb-4 pt-[6.75rem] sm:px-6 sm:pt-[7.5rem] lg:px-10 lg:pb-10 lg:pt-32">
       <app-hero></app-hero>
-      @defer (on idle) {
-        <app-story></app-story>
-      } @placeholder {
-        <div class="section-placeholder ph-story"></div>
-      }
-      @defer (on idle) {
-        <app-services></app-services>
-      } @placeholder {
-        <div class="section-placeholder ph-services"></div>
-      }
-      @defer (on idle) {
-        <app-process></app-process>
-      } @placeholder {
-        <div class="section-placeholder ph-process"></div>
-      }
-      @defer (on idle) {
-        <app-menu></app-menu>
-      } @placeholder {
-        <div class="section-placeholder ph-menu"></div>
-      }
-      @defer (on idle) {
-        <app-testimonials></app-testimonials>
-      } @placeholder {
-        <div class="section-placeholder ph-testimonials"></div>
-      }
+      <app-menu></app-menu>
+      <app-story></app-story>
+      <app-services></app-services>
+      <app-process></app-process>
+      <app-testimonials></app-testimonials>
     </main>
     <app-footer></app-footer>
+    <app-cart></app-cart>
+    <app-order-tracking></app-order-tracking>
   `,
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+  private revealObserver?: IntersectionObserver;
+
   constructor(private titleService: Title, private metaService: Meta) {}
 
   ngOnInit(): void {
@@ -73,5 +61,22 @@ export class AppComponent implements OnInit {
     this.metaService.updateTag({ name: 'twitter:title', content: 'MERZY | Specialty Coffee & Bakery in Alexandria' });
     this.metaService.updateTag({ name: 'twitter:description', content: 'Good coffee. Fresh bakes. Alexandria by the sea.' });
     this.metaService.updateTag({ name: 'twitter:image', content: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop' });
+  }
+
+  ngAfterViewInit(): void {
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('motion-ready');
+    this.revealObserver = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('is-visible');
+        this.revealObserver?.unobserve(entry.target);
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll<HTMLElement>('.reveal').forEach(element => this.revealObserver?.observe(element));
+  }
+
+  ngOnDestroy(): void {
+    this.revealObserver?.disconnect();
   }
 }
