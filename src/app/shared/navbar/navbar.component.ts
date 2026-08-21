@@ -120,7 +120,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       this.setupScrollSpy();
-      window.addEventListener('scroll', this.onScroll);
+      window.addEventListener('scroll', this.onScroll, { passive: true });
     }
     this.cartSub = this.cartService.items.subscribe(
       () => this.cartCount = this.cartService.totalCount
