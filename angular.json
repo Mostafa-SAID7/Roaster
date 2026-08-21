@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "island-roaster": {
+    "merzy": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/island-roaster",
+            "outputPath": "dist/merzy",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -63,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "island-roaster:build:production"
+              "buildTarget": "merzy:build:production"
             },
             "development": {
-              "buildTarget": "island-roaster:build:development"
+              "buildTarget": "merzy:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -1,4 +1,4 @@
-# Island Roaster - Architecture Guide
+# MERZY - Architecture Guide
 
 ## Project Structure
 
@@ -70,7 +70,7 @@ Interactive bean-to-mug journey with:
 - Real-time visual feedback
 
 ### DeliveryComponent
-Island delivery checker with dynamic pricing.
+MERZY delivery checker with dynamic pricing.
 
 ### FooterComponent
 Navigation and company information.

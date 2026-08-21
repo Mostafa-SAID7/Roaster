@@ -9,6 +9,8 @@ import { TestimonialsComponent } from './features/testimonials/testimonials.comp
 import { FooterComponent } from './shared/footer/footer.component';
 import { BackgroundComponent } from './shared/background/background.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { CartComponent } from './shared/cart/cart.component';
+import { OrderTrackingComponent } from './features/order-tracking/order-tracking.component';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +25,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     TestimonialsComponent,
     FooterComponent,
     NavbarComponent,
+    CartComponent,
+    OrderTrackingComponent,
   ],
   template: `
     <app-background></app-background>

@@ -1,6 +1,6 @@
-# Island Roaster - Documentation Index
+# MERZY - Documentation Index
 
-Welcome to the Island Roaster documentation! This guide will help you navigate all available resources.
+Welcome to the MERZY documentation! This guide will help you navigate all available resources.
 
 ## 📖 Documentation Files
 

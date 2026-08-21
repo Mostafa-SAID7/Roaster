@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { MenuService } from '../../core/services/menu.service';
+import { CartService } from '../../core/services/cart.service';
+import { MenuItem } from '../../core/models/menu.model';
 
 interface Feature {
   title: string;
@@ -21,12 +24,58 @@ interface Feature {
         <article *ngFor="let feature of features" class="group relative min-h-[420px] bg-dark-900 rounded-[2rem] border border-primary-400/10 overflow-hidden hover:border-primary-400/40 hover:-translate-y-1 transition-all duration-500"><img [src]="feature.image" [alt]="feature.alt" width="900" height="720" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"><div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-dark-900/65 to-transparent"></div><div class="absolute inset-x-0 bottom-0 p-8 sm:p-10"><span class="text-primary-400 font-bold uppercase text-xs tracking-[0.25em]">{{ feature.label }}</span><h3 class="text-3xl sm:text-4xl font-macondo text-cream mt-3 mb-4">{{ feature.title }}</h3><p class="text-cream/70 leading-relaxed max-w-md">{{ feature.description }}</p><a [href]="feature.label === 'Specialty Coffee' ? '#coffee' : '#bakery'" class="inline-flex items-center gap-2 text-primary-400 text-xs font-bold uppercase tracking-widest mt-6 hover:text-cream transition-colors">{{ feature.label === 'Specialty Coffee' ? 'Discover The Coffee' : 'Explore The Bakery' }}<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></a></div></article>
       </div>
       <div class="max-w-6xl mx-auto mt-8 sm:mt-12 relative rounded-[2.5rem] overflow-hidden border border-primary-400/10 bg-dark-900 grid grid-cols-1 lg:grid-cols-2"><div class="p-8 sm:p-12 lg:p-16 flex flex-col justify-center"><span class="text-primary-400 font-bold uppercase text-xs tracking-[0.3em] mb-4">Something New To Discover</span><h3 class="text-4xl sm:text-5xl font-macondo text-cream mb-5">London Cake</h3><p class="text-cream/70 leading-relaxed max-w-md">From familiar favorites to seasonal creations, MERZY's bakery menu keeps things interesting.</p><p class="text-primary-400/80 text-sm font-bold uppercase tracking-widest mt-7">A seasonal MERZY creation worth discovering.</p></div><div class="min-h-[300px]"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000&auto=format&fit=crop" alt="Seasonal cake from the bakery" width="1000" height="700" loading="lazy" class="w-full h-full object-cover"></div></div>
+
+      <!-- Interactive Menu -->
+      <div class="max-w-4xl mx-auto mt-16 sm:mt-24">
+        <div class="text-center mb-10">
+          <span class="text-primary-400 font-bold uppercase text-sm tracking-[0.2em] mb-4 block">The Menu</span>
+          <h3 class="text-3xl sm:text-4xl font-macondo text-cream tracking-tight">Order From MERZY</h3>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex justify-center gap-2 mb-10">
+          <button (click)="activeCategory = 'coffee'" [class]="activeCategory === 'coffee' ? 'bg-primary-400 text-dark-900 shadow-lg shadow-primary-400/20' : 'text-cream/70 hover:text-primary-400 hover:bg-dark-800/50'" class="px-6 py-3 rounded-full font-bold uppercase tracking-widest text-xs transition-all duration-300">Coffee</button>
+          <button (click)="activeCategory = 'bakery'" [class]="activeCategory === 'bakery' ? 'bg-primary-400 text-dark-900 shadow-lg shadow-primary-400/20' : 'text-cream/70 hover:text-primary-400 hover:bg-dark-800/50'" class="px-6 py-3 rounded-full font-bold uppercase tracking-widest text-xs transition-all duration-300">Bakery</button>
+        </div>
+
+        <!-- Menu Items -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          @for (item of activeItems; track item.id) {
+            <div class="group flex items-center gap-4 bg-dark-900 border border-primary-400/10 rounded-2xl p-5 hover:border-primary-400/30 transition-all duration-300">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-baseline justify-between gap-3 mb-1">
+                  <h4 class="text-cream font-bold text-sm uppercase tracking-wider truncate">{{ item.name }}</h4>
+                  <span class="text-primary-400 font-bold text-sm whitespace-nowrap">{{ item.price }} EGP</span>
+                </div>
+                <p class="text-cream/50 text-xs leading-relaxed">{{ item.description }}</p>
+              </div>
+              <button (click)="addToCart(item)" [attr.aria-label]="'Add ' + item.name + ' to cart'" class="shrink-0 w-10 h-10 rounded-full bg-dark-800 border border-primary-400/20 flex items-center justify-center text-primary-400 hover:bg-primary-400 hover:text-dark-900 hover:scale-110 transition-all duration-300">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
     </section>
   `,
 })
 export class MenuComponent {
+  private menuService = inject(MenuService);
+  private cartService = inject(CartService);
+
+  activeCategory: 'coffee' | 'bakery' = 'coffee';
+
   features: Feature[] = [
     { label: 'Specialty Coffee', title: 'Coffee, Made With Care.', description: 'Carefully prepared espresso and manual brews made for people who appreciate the details.', image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=900&auto=format&fit=crop', alt: 'Specialty coffee being prepared' },
     { label: 'Fresh From The Bakery', title: 'A Good Pairing.', description: 'Fresh pastries and desserts made to pair perfectly with your coffee.', image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=900&auto=format&fit=crop', alt: 'Fresh pastries from an artisan bakery' },
   ];
+
+  get activeItems(): MenuItem[] {
+    return this.menuService.getByCategory(this.activeCategory);
+  }
+
+  addToCart(item: MenuItem): void {
+    this.cartService.addItem({ id: item.id, name: item.name, price: item.price, image: '' });
+    this.cartService.open();
+  }
 }
