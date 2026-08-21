@@ -27,6 +27,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   cartCount = 0;
   private readonly sectionIds = ['hero', 'menu', 'coffee', 'bakery', 'experience', 'location'];
   private scrollFrame: number | null = null;
+  private pendingSection: string | null = null;
   private cartSub?: Subscription;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private motion: MotionService, private cdr: ChangeDetectorRef, private cartService: CartService) {}
@@ -53,9 +54,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   openCart(): void { this.cartService.open(); }
   private onScroll = (): void => { if (this.scrollFrame !== null) return; this.scrollFrame = requestAnimationFrame(() => { this.isScrolled = window.scrollY > 50; this.syncActiveSectionFromScroll(); this.scrollFrame = null; this.cdr.markForCheck(); }); };
   private onHashChange = (): void => { this.syncActiveSectionFromHash(); this.cdr.markForCheck(); };
-  private syncActiveSectionFromHash(): void { if (!isPlatformBrowser(this.platformId)) return; const hash = decodeURIComponent(window.location.hash.slice(1)); if (this.sectionIds.includes(hash)) this.activeSection = hash; }
-  private syncActiveSectionFromScroll(): void { if (!isPlatformBrowser(this.platformId)) return; const headerOffset = 160; const active = this.sectionIds.map(id => ({ id, top: document.getElementById(id)?.getBoundingClientRect().top ?? Number.NEGATIVE_INFINITY })).filter(section => section.top <= headerOffset).sort((a, b) => b.top - a.top)[0]; if (active && active.id !== this.activeSection) this.activeSection = active.id; }
-  scrollToSection(id: string): void { this.mobileMenuOpen = false; this.activeSection = id; if (isPlatformBrowser(this.platformId)) window.history.replaceState(null, '', '#' + id); this.cdr.markForCheck(); this.motion.scrollToId(id); }
+  private syncActiveSectionFromHash(): void { if (!isPlatformBrowser(this.platformId)) return; const hash = decodeURIComponent(window.location.hash.slice(1)); if (this.sectionIds.includes(hash)) { this.activeSection = hash; this.pendingSection = hash; } }
+  private syncActiveSectionFromScroll(): void { if (!isPlatformBrowser(this.platformId)) return; const headerOffset = 120; const pendingElement = this.pendingSection ? document.getElementById(this.pendingSection) : null; if (pendingElement && Math.abs(pendingElement.getBoundingClientRect().top - headerOffset) > 24) return; this.pendingSection = null; const active = this.sectionIds.map(id => ({ id, top: document.getElementById(id)?.getBoundingClientRect().top ?? Number.NEGATIVE_INFINITY })).filter(section => section.top <= headerOffset).sort((a, b) => b.top - a.top)[0]; if (active && active.id !== this.activeSection) this.activeSection = active.id; }
+  scrollToSection(id: string): void { this.mobileMenuOpen = false; this.activeSection = id; this.pendingSection = id; if (isPlatformBrowser(this.platformId)) window.history.replaceState(null, '', '#' + id); this.cdr.markForCheck(); this.motion.scrollToId(id); }
   navLinkClass(section: string): string { return this.activeSection === section ? 'bg-[#2b1d19] text-[#fffdf8]' : 'text-[#211815]/60 hover:bg-white hover:text-[#8f4f37]'; }
   mobileNavLinkClass(section: string): string { return this.activeSection === section ? 'bg-[#2b1d19] text-[#fffdf8]' : 'text-[#211815]/60 hover:bg-[#f8f4ed] hover:text-[#8f4f37]'; }
 }
