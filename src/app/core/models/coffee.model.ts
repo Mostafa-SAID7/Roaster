@@ -24,18 +24,10 @@ export interface BrewMethod {
   timing: string;
 }
 
-export interface DeliveryOption {
-  island: string;
-  time: string;
-  cost: number;
-}
-
 export interface Product {
   id: string;
   name: string;
-  origin: CoffeeOrigin;
   roastLevel: RoastLevel;
-  price: number;
   description: string;
   image: string;
 }
