@@ -1,128 +1,18 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section id="services" class="mt-24 sm:mt-32 lg:mt-44 px-4 sm:px-6 reveal">
-
-      <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
-        <span class="text-primary-400 font-bold uppercase text-sm tracking-[0.2em] mb-4 block">What We Offer</span>
-        <h2 class="section-title">Our Delicious Services</h2>
-        <div class="flex items-center justify-center gap-3 mb-6">
-          <div class="h-px w-16 bg-gradient-to-r from-transparent to-primary-400/60"></div>
-          <svg class="w-4 h-4 text-primary-400 animate-svgFloat" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
-          </svg>
-          <div class="h-px w-16 bg-gradient-to-l from-transparent to-primary-400/60"></div>
-        </div>
-        <p class="text-cream/60 text-base leading-relaxed">
-          We offer a carefully curated collection that showcases the distinct characteristics of<br class="hidden sm:block">
-          beans sourced from specific regions.
-        </p>
-      </div>
-
-      <!-- Service Cards -->
+    <section id="coffee" class="mt-24 sm:mt-32 lg:mt-44 px-4 sm:px-6 reveal">
+      <div class="text-center max-w-3xl mx-auto mb-16 lg:mb-24"><span class="text-primary-400 font-bold uppercase text-sm tracking-[0.2em] mb-4 block">Specialty Coffee</span><h2 class="section-title">Coffee, Made With Intention.</h2><p class="text-cream/60 text-base sm:text-lg leading-relaxed">From classic espresso drinks to carefully prepared manual brews, MERZY focuses on the details that make a great cup of coffee.</p></div>
       <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-
-        <!-- Coffee Types -->
-        <div class="group bg-dark-900 rounded-[2rem] border border-primary-400/10 p-10 text-center
-                    hover:border-primary-400/40 hover:shadow-2xl hover:shadow-primary-400/10
-                    hover:-translate-y-2 transition-all duration-500 cursor-pointer relative overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-b from-primary-400/0 to-primary-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[2rem]"></div>
-          <!-- Icon -->
-          <div class="w-20 h-20 rounded-full bg-dark-800/80 border border-primary-400/20
-                      flex items-center justify-center mx-auto mb-8
-                      group-hover:border-primary-400/50 group-hover:shadow-[0_0_30px_rgba(212,163,115,0.15)]
-                      transition-all duration-500">
-            <svg class="w-9 h-9 text-primary-400 animate-svgFloat" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v-4m4 4v-4m-8 4v-4M5.25 8h13.5v9a3.75 3.75 0 01-3.75 3.75h-6A3.75 3.75 0 015.25 17V8zM18.75 11.25h1.125A1.875 1.875 0 0121.75 13.125v.75a1.875 1.875 0 01-1.875 1.875h-1.125V11.25z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-macondo text-cream mb-4 tracking-tight">Coffee Types</h3>
-          <p class="text-cream/60 text-sm leading-relaxed mb-8">
-            We offer a tantalizing variety of coffee types to cater to your unique preferences.
-          </p>
-          <a href="#process" class="inline-flex items-center gap-2 text-primary-400 text-sm font-bold uppercase tracking-widest
-                    hover:text-cream transition-colors duration-300 group/link">
-            Learn More
-            <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-            </svg>
-          </a>
-        </div>
-
-        <!-- Different Beans -->
-        <div class="group bg-dark-900 rounded-[2rem] border border-primary-400/10 p-10 text-center
-                    hover:border-primary-400/40 hover:shadow-2xl hover:shadow-primary-400/10
-                    hover:-translate-y-2 transition-all duration-500 cursor-pointer relative overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-b from-primary-400/0 to-primary-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[2rem]"></div>
-          <div class="w-20 h-20 rounded-full bg-dark-800/80 border border-primary-400/20
-                      flex items-center justify-center mx-auto mb-8
-                      group-hover:border-primary-400/50 group-hover:shadow-[0_0_30px_rgba(212,163,115,0.15)]
-                      transition-all duration-500">
-            <svg class="w-9 h-9 text-primary-400 animate-svgPulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-macondo text-cream mb-4 tracking-tight">Different Beans</h3>
-          <p class="text-cream/60 text-sm leading-relaxed mb-8">
-            We take pride in sourcing and roasting the finest quality beans from around the world.
-          </p>
-          <a href="#process" class="inline-flex items-center gap-2 text-primary-400 text-sm font-bold uppercase tracking-widest
-                    hover:text-cream transition-colors duration-300 group/link">
-            Learn More
-            <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-            </svg>
-          </a>
-        </div>
-
-        <!-- Cold Coffee -->
-        <div class="group bg-dark-900 rounded-[2rem] border border-primary-400/10 p-10 text-center
-                    hover:border-primary-400/40 hover:shadow-2xl hover:shadow-primary-400/10
-                    hover:-translate-y-2 transition-all duration-500 cursor-pointer relative overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-b from-primary-400/0 to-primary-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[2rem]"></div>
-          <div class="w-20 h-20 rounded-full bg-dark-800/80 border border-primary-400/20
-                      flex items-center justify-center mx-auto mb-8
-                      group-hover:border-primary-400/50 group-hover:shadow-[0_0_30px_rgba(212,163,115,0.15)]
-                      transition-all duration-500">
-            <svg class="w-9 h-9 text-primary-400 animate-svgSway" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 2c.34 0 .67.03 1 .08V12h7.92c-.4 3.6-3.41 6.42-7.03 6.94V21H11v-2.06A8.01 8.01 0 013.08 12H5c.37 3.11 2.9 5.5 6.08 5.92V12h-.08A8.009 8.009 0 015 5.08"/>
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.5 7.5h2m-2 3h2"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-macondo text-cream mb-4 tracking-tight">Cold Coffee</h3>
-          <p class="text-cream/60 text-sm leading-relaxed mb-8">
-            We offer a variety of cold coffee options to satisfy your cravings at any time.
-          </p>
-          <a href="#menu" class="inline-flex items-center gap-2 text-primary-400 text-sm font-bold uppercase tracking-widest
-                    hover:text-cream transition-colors duration-300 group/link">
-            Learn More
-            <svg class="w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-            </svg>
-          </a>
-        </div>
-
+        <article class="group bg-dark-900 rounded-[2rem] border border-primary-400/10 p-10 text-center hover:border-primary-400/40 hover:-translate-y-2 transition-all duration-500"><div class="w-20 h-20 rounded-full bg-dark-800/80 border border-primary-400/20 flex items-center justify-center mx-auto mb-8"><svg class="w-9 h-9 text-primary-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v-4m4 4v-4m-8 4v-4M5.25 8h13.5v9a3.75 3.75 0 01-3.75 3.75h-6A3.75 3.75 0 015.25 17V8zM18.75 11.25h1.125A1.875 1.875 0 0121.75 13.125v.75a1.875 1.875 0 01-1.875 1.875h-1.125V11.25z"/></svg></div><h3 class="text-xl font-macondo text-cream mb-4 tracking-tight">Espresso</h3><p class="text-cream/60 text-sm leading-relaxed">Rich, balanced and carefully extracted for a clean, satisfying cup.</p></article>
+        <article class="group bg-dark-900 rounded-[2rem] border border-primary-400/10 p-10 text-center hover:border-primary-400/40 hover:-translate-y-2 transition-all duration-500"><div class="w-20 h-20 rounded-full bg-dark-800/80 border border-primary-400/20 flex items-center justify-center mx-auto mb-8"><svg class="w-9 h-9 text-primary-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 3v18M18 3v18M3 8h18M3 16h18"/></svg></div><h3 class="text-xl font-macondo text-cream mb-4 tracking-tight">V60</h3><p class="text-cream/60 text-sm leading-relaxed">A manual brew designed to reveal the character, aroma and delicate flavors of specialty coffee.</p></article>
+        <article class="group bg-dark-900 rounded-[2rem] border border-primary-400/10 p-10 text-center hover:border-primary-400/40 hover:-translate-y-2 transition-all duration-500"><div class="w-20 h-20 rounded-full bg-dark-800/80 border border-primary-400/20 flex items-center justify-center mx-auto mb-8"><svg class="w-9 h-9 text-primary-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m-6-9h12"/></svg></div><h3 class="text-xl font-macondo text-cream mb-4 tracking-tight">Signature Drinks</h3><p class="text-cream/60 text-sm leading-relaxed">Hot and cold creations for modern coffee lovers, with seasonal flavors and new favorites appearing throughout the year.</p></article>
       </div>
-
-      <!-- Divider Coffee Beans Banner -->
-      <div class="mt-20 lg:mt-28 relative h-48 rounded-[2rem] overflow-hidden border border-primary-400/10">
-        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=70&w=960&auto=format&fit=crop"
-             alt="Coffee beans spread"
-             width="960" height="192"
-             sizes="(max-width: 1024px) 100vw, 960px"
-             decoding="async"
-             loading="lazy"
-             class="w-full h-full object-cover object-center animate-imageSlowZoom">
-        <div class="absolute inset-0 bg-gradient-to-r from-dark-900 via-dark-900/40 to-dark-900 pointer-events-none"></div>
-      </div>
-
+      <div id="bakery" class="mt-16 sm:mt-24 relative h-[420px] rounded-[2.5rem] overflow-hidden border border-primary-400/10"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1400&auto=format&fit=crop" alt="Fresh pastries and bakery details" width="1400" height="700" loading="lazy" class="absolute inset-0 w-full h-full object-cover animate-imageSlowZoom"><div class="absolute inset-0 bg-gradient-to-r from-dark-900 via-dark-900/70 to-dark-900/20"></div><div class="relative h-full max-w-xl flex flex-col justify-center p-8 sm:p-14"><span class="text-primary-400 font-bold uppercase text-xs tracking-[0.3em] mb-4">The Bakery</span><h2 class="text-4xl sm:text-5xl font-macondo text-cream mb-5">Baked Fresh. Made To Go With Coffee.</h2><p class="text-cream/70 leading-relaxed">Coffee deserves something good beside it. Our bakery brings freshly prepared pastries and desserts to the MERZY experience, made for slow mornings, afternoon breaks and everything in between.</p></div></div>
     </section>
   `,
 })
