@@ -18,9 +18,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
           </div>
           <div class="mt-14 flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-white/45"><span class="h-px w-10 bg-[#d89a75]"></span><span>Beside the Bibliotheca Alexandrina</span></div>
         </div>
-        <div class="relative min-h-[28rem] p-4 sm:p-7 lg:min-h-0 lg:p-10 xl:p-14">
-          <div class="hero-media group relative h-full min-h-[28rem] overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop" alt="Fresh coffee at MERZY in Alexandria" width="1200" height="900" sizes="(max-width: 1023px) 100vw, 50vw" decoding="async" fetchpriority="high" class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+        <div class="relative min-h-[17rem] p-4 sm:min-h-[23rem] sm:p-7 lg:min-h-0 lg:p-10 xl:p-14">
+          <div class="hero-media group relative h-full min-h-[17rem] overflow-hidden sm:min-h-[23rem] lg:min-h-0">
+            <video class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" autoplay muted loop playsinline preload="metadata" poster="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop" aria-label="Espresso and bakery preparation at MERZY"><source src="https://videos.pexels.com/video-files/6602224/6602224-sd_360_640_30fps.mp4" type="video/mp4"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop" alt="Fresh coffee at MERZY in Alexandria" width="1200" height="900" decoding="async"></video>
             <div class="absolute bottom-5 left-5 z-10 sm:bottom-8 sm:left-8"><div class="glass-effect rounded-xl px-4 py-3"><div class="text-xs font-bold uppercase tracking-widest text-[#8f4f37]">MERZY</div><div class="mt-1 text-sm text-[#211815]">Coffee. Bakery. Mediterranean moments.</div></div></div>
           </div>
         </div>

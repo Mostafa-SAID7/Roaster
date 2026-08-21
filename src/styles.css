@@ -120,7 +120,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--merzy-copper); 
 }
 
 .hero-section {
-  min-height: clamp(34rem, calc(100svh - 9rem), 48rem);
+  min-height: clamp(30rem, calc(100svh - 13rem), 42rem);
   scroll-margin-top: 120px;
   background: var(--merzy-espresso);
   border: 1px solid rgba(255, 253, 248, 0.12);
@@ -200,8 +200,8 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--merzy-copper); 
 @media (max-width: 767px) {
   .hero-section { min-height: 0; border-radius: 1rem; }
   .site-main { padding-top: 6.25rem; }
-  .hero-copy { min-height: 31rem; }
-  .hero-media { min-height: 20rem; }
+  .hero-copy { min-height: 24rem; padding-bottom: 4rem; padding-top: 5.5rem; }
+  .hero-media { min-height: 16rem; }
   .hero-media::after { background: linear-gradient(145deg, rgba(33, 24, 21, 0.08), transparent 55%, rgba(53, 104, 121, 0.2)); }
   .hero-copy .hero-heading { max-width: 11ch; }
   .experience-card:nth-child(n) { margin-top: 0; }
