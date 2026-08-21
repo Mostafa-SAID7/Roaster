@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SelectorComponent, SelectorOption } from '../selector/selector.component';
 
@@ -6,13 +6,14 @@ import { SelectorComponent, SelectorOption } from '../selector/selector.componen
   selector: 'app-delivery-banner',
   standalone: true,
   imports: [CommonModule, SelectorComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="delivery" class="max-w-6xl mx-auto mb-16 lg:mb-20 scroll-mt-28">
       <div class="relative bg-dark-900 rounded-[2.5rem] border border-primary-400/10 overflow-hidden">
         <!-- BG image -->
         <div class="absolute inset-0">
           <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1400&auto=format&fit=crop"
-               alt="Coffee delivery" loading="lazy"
+               alt="Coffee delivery" loading="lazy" width="1400" height="600"
                class="w-full h-full object-cover opacity-10 animate-imageSlowZoom">
         </div>
         <div class="absolute inset-0 bg-gradient-to-r from-dark-900 via-dark-900/70 to-dark-900/30 pointer-events-none"></div>
@@ -42,14 +43,14 @@ import { SelectorComponent, SelectorOption } from '../selector/selector.componen
                 (selectionChange)="onIslandSelected($event)"
                 class="w-full sm:w-2/3">
               </app-selector>
-              <button 
-                (click)="checkDelivery()" 
+              <button
+                (click)="checkDelivery()"
                 class="w-full sm:w-1/3 bg-primary-400 text-dark-900 font-bold uppercase tracking-widest py-4 px-6 rounded-xl hover:bg-cream transition-all duration-300 h-14 flex items-center justify-center hover:scale-105 active:scale-95 shadow-lg shadow-primary-400/20">
                 Check
               </button>
             </div>
-            
-            <div *ngIf="deliveryResult" class="mt-6 text-primary-400 font-bold uppercase tracking-widest text-sm animate-fadeIn bg-dark-800/80 p-4 rounded-xl border border-primary-400/20 max-w-md backdrop-blur-sm">
+
+            <div *ngIf="deliveryResult" class="mt-6 text-primary-400 font-bold uppercase tracking-widest text-sm animate-fadeIn bg-dark-800/80 p-4 rounded-xl border border-primary-400/20 max-w-md">
               {{ deliveryResult }}
             </div>
           </div>

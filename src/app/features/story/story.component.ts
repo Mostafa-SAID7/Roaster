@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-story',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="story" class="mt-24 sm:mt-32 lg:mt-44 max-w-7xl mx-auto reveal group">
       <div class="relative bg-dark-900 rounded-[3rem] border border-primary-400/10 p-8 sm:p-12 lg:p-20 shadow-2xl overflow-hidden">

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../core/services/cart.service';
@@ -18,6 +18,7 @@ import { DeliveryBannerComponent } from '../../shared/delivery-banner/delivery-b
   selector: 'app-menu',
   standalone: true,
   imports: [CommonModule, DeliveryBannerComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="menu" class="mt-24 sm:mt-32 lg:mt-44 px-4 sm:px-6 reveal">
 
@@ -63,7 +64,7 @@ import { DeliveryBannerComponent } from '../../shared/delivery-banner/delivery-b
 
           <!-- Image -->
           <div class="relative h-52 overflow-hidden">
-            <img [src]="item.image" [alt]="item.name" loading="lazy"
+            <img [src]="item.image" [alt]="item.name" loading="lazy" width="400" height="208"
                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out">
             <div class="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent pointer-events-none"></div>
           </div>
@@ -156,12 +157,13 @@ export class MenuComponent implements OnInit, OnDestroy {
       image: 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?q=80&w=800&auto=format&fit=crop' },
   ];
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.sub = this.cartService.items.subscribe(items => {
       this.cartItems = items;
       this.cartCount = this.cartService.totalCount;
+      this.cdr.markForCheck();
     });
   }
 

@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MotionService } from '../../core/services/motion.service';
 
 interface Testimonial {
   quote: string;
@@ -12,6 +13,7 @@ interface Testimonial {
   selector: 'app-testimonials',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="reviews" class="mt-24 sm:mt-32 lg:mt-44 px-4 sm:px-6 reveal">
 
@@ -62,6 +64,7 @@ interface Testimonial {
                 <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-400/30">
                   <img [src]="testimonials[activeIndex].image"
                        [alt]="testimonials[activeIndex].name"
+                       width="48" height="48" loading="lazy"
                        class="w-full h-full object-cover">
                 </div>
                 <div>
@@ -115,13 +118,14 @@ interface Testimonial {
                 <div class="w-full h-full rounded-[6rem_6rem_4rem_4rem] overflow-hidden border border-primary-400/20 shadow-2xl shadow-primary-400/10">
                   <img [src]="testimonials[activeIndex].image"
                        [alt]="testimonials[activeIndex].name"
+                       width="288" height="320" loading="lazy"
                        class="w-full h-full object-cover object-top transition-all duration-700">
                   <div class="absolute inset-0 bg-gradient-to-t from-dark-900/40 via-transparent to-transparent pointer-events-none"></div>
                 </div>
                 <!-- Coffee Bean Splatter Accent -->
                 <div class="absolute -bottom-4 -right-4 w-32 h-32 opacity-30">
                   <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=400&auto=format&fit=crop"
-                       alt="Coffee beans accent" loading="lazy"
+                       alt="Coffee beans accent" loading="lazy" width="128" height="128"
                        class="w-full h-full object-cover rounded-3xl">
                 </div>
               </div>
@@ -159,8 +163,13 @@ export class TestimonialsComponent implements OnInit, OnDestroy {
     },
   ];
 
+  constructor(private cdr: ChangeDetectorRef, private motion: MotionService) {}
+
   ngOnInit(): void {
-    this.autoPlay = setInterval(() => this.next(), 6000);
+    // Skip autoplay for users who prefer reduced motion.
+    if (!this.motion.prefersReducedMotion) {
+      this.autoPlay = setInterval(() => this.next(), 6000);
+    }
   }
 
   ngOnDestroy(): void {
@@ -169,9 +178,11 @@ export class TestimonialsComponent implements OnInit, OnDestroy {
 
   next(): void {
     this.activeIndex = (this.activeIndex + 1) % this.testimonials.length;
+    this.cdr.markForCheck();
   }
 
   prev(): void {
     this.activeIndex = (this.activeIndex - 1 + this.testimonials.length) % this.testimonials.length;
+    this.cdr.markForCheck();
   }
 }

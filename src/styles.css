@@ -319,7 +319,7 @@ input[type=range]::-moz-range-track {
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
   .backdrop-blur-xl,
   .backdrop-blur-md,
   .backdrop-blur-sm {

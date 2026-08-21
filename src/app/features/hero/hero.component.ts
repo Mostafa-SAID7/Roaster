@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'class': 'block' },
   template: `
     <header id="hero" class="relative w-full min-h-[95vh] rounded-[3rem] sm:rounded-[4rem] overflow-hidden bg-dark-900 shadow-2xl reveal active flex flex-col border border-primary-400/10 mt-2">
@@ -27,21 +28,21 @@ import { CommonModule } from '@angular/common';
 
         <!-- Right: Image with Focus Zoom & Rounded Accents -->
         <div class="w-full lg:w-1/2 p-4 sm:p-8 lg:p-12 xl:p-16 flex items-center justify-center reveal reveal-delay-2 animate-slideInRight">
-          <div class="relative w-full h-[350px] sm:h-[450px] lg:h-[90%] xl:h-[95%] rounded-[3rem] lg:rounded-[4rem] overflow-hidden border border-primary-400/20 shadow-2xl group animate-subtleGlow">
+          <div class="relative w-full h-[350px] sm:h-[450px] lg:h-[90%] xl:h-[95%] rounded-[3rem] lg:rounded-[4rem] overflow-hidden border border-primary-400/20 shadow-2xl group">
             <!-- Cinematic Overlays -->
             <div class="absolute inset-0 bg-gradient-to-tr from-dark-900 via-transparent to-primary-400/10 z-10 pointer-events-none"></div>
             <div class="absolute inset-0 bg-dark-900/10 mix-blend-multiply z-10 pointer-events-none"></div>
             <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[3rem] lg:rounded-[4rem] z-20 pointer-events-none"></div>
-            
-            <!-- Focus Zoom Image -->
+
+            <!-- Hero Image (LCP — no infinite zoom animation so hover transform works cleanly) -->
             <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=75&w=960&auto=format&fit=crop"
                  alt="Premium Roaster Coffee Packaging"
                  width="960" height="900"
                  sizes="(max-width: 1023px) 100vw, 50vw"
                  decoding="async"
                  fetchpriority="high"
-                 class="absolute inset-0 w-full h-full object-cover transform animate-imageSlowZoom group-hover:scale-110 transition-transform duration-[2000ms] ease-out">
-            
+                 class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out">
+
             <!-- Floating Accent -->
             <div class="absolute bottom-10 left-10 z-20 hidden sm:block animate-fadeIn delay-500">
               <div class="glass-effect p-4 rounded-2xl border border-primary-400/30 flex items-center gap-4">

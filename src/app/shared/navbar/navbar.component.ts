@@ -1,19 +1,21 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../core/services/cart.service';
+import { MotionService } from '../../core/services/motion.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Wrapper for Sticky Header -->
-    <div class="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 pointer-events-none px-4 sm:px-6 lg:px-8 py-4" 
+    <div class="fixed top-0 left-0 right-0 z-[100] transition-all duration-300 pointer-events-none px-4 sm:px-6 lg:px-8 py-4"
          [class.md:py-6]="!isScrolled">
-      <nav class="max-w-[1500px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-10 py-3 sm:py-4 gap-4 bg-dark-900/80 backdrop-blur-xl border border-primary-400/20 rounded-2xl sm:rounded-3xl shadow-2xl pointer-events-auto transition-all duration-500"
+      <nav class="max-w-[1500px] mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-10 py-3 sm:py-4 gap-4 bg-dark-900/80 backdrop-blur-md border border-primary-400/20 rounded-2xl sm:rounded-3xl shadow-2xl pointer-events-auto transition-all duration-500"
            [class.translate-y-0]="!isScrolled">
-        
+
         <!-- Logo -->
         <div (click)="scrollToSection('hero')" class="flex items-center gap-2 sm:gap-3 cursor-pointer group min-w-fit">
           <div class="text-primary-400 p-1.5 sm:p-2 rounded-lg border border-primary-400/30 bg-dark-900/50 group-hover:scale-110 transition-transform duration-300">
@@ -25,21 +27,21 @@ import { CartService } from '../../core/services/cart.service';
         </div>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center gap-1 bg-dark-950/50 backdrop-blur-md border border-primary-400/10 rounded-full p-1 font-bold uppercase tracking-widest text-xs">
-          <a (click)="scrollToSection('story')" 
-             [class]="navLinkClass('story')" 
+        <div class="hidden md:flex items-center gap-1 bg-dark-950/50 backdrop-blur-sm border border-primary-400/10 rounded-full p-1 font-bold uppercase tracking-widest text-xs">
+          <a (click)="scrollToSection('story')"
+             [class]="navLinkClass('story')"
              class="px-3 lg:px-5 py-2 rounded-full transition-all duration-300 cursor-pointer">Story</a>
-          <a (click)="scrollToSection('services')" 
-             [class]="navLinkClass('services')" 
+          <a (click)="scrollToSection('services')"
+             [class]="navLinkClass('services')"
              class="px-3 lg:px-5 py-2 rounded-full transition-all duration-300 cursor-pointer">Services</a>
-          <a (click)="scrollToSection('menu')" 
-             [class]="navLinkClass('menu')" 
+          <a (click)="scrollToSection('menu')"
+             [class]="navLinkClass('menu')"
              class="px-3 lg:px-5 py-2 rounded-full transition-all duration-300 cursor-pointer">Menu</a>
-          <a (click)="scrollToSection('reviews')" 
-             [class]="navLinkClass('reviews')" 
+          <a (click)="scrollToSection('reviews')"
+             [class]="navLinkClass('reviews')"
              class="px-3 lg:px-5 py-2 rounded-full transition-all duration-300 cursor-pointer">Reviews</a>
-          <a (click)="scrollToSection('delivery')" 
-             [class]="navLinkClass('delivery')" 
+          <a (click)="scrollToSection('delivery')"
+             [class]="navLinkClass('delivery')"
              class="px-3 lg:px-5 py-2 rounded-full transition-all duration-300 cursor-pointer">Delivery</a>
         </div>
 
@@ -83,8 +85,8 @@ import { CartService } from '../../core/services/cart.service';
       </nav>
 
       <!-- Mobile Menu Overlay -->
-      <div *ngIf="mobileMenuOpen" 
-           class="md:hidden mt-4 bg-dark-900/95 backdrop-blur-xl border border-primary-400/20 px-4 py-6 rounded-[2rem] shadow-2xl animate-slideInDown animate-fadeIn pointer-events-auto">
+      <div *ngIf="mobileMenuOpen"
+           class="md:hidden mt-4 bg-dark-900/95 backdrop-blur-md border border-primary-400/20 px-4 py-6 rounded-[2rem] shadow-2xl animate-slideInDown animate-fadeIn pointer-events-auto">
         <div class="flex flex-col gap-2">
           <a (click)="scrollToSection('story')" class="px-6 py-4 rounded-xl transition-all duration-300 font-bold uppercase tracking-widest text-sm"
              [class]="mobileNavLinkClass('story')">Our Story</a>
@@ -108,13 +110,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
   activeSection = 'hero';
   isScrolled = false;
   cartCount = 0;
+
+  private readonly sectionIds = ['hero', 'story', 'services', 'process', 'menu', 'reviews', 'delivery', 'shop'];
+  private observed = new Set<string>();
   private observer: IntersectionObserver | null = null;
+  private mutationObserver: MutationObserver | null = null;
   private cartSub!: Subscription;
   private scrollFrame: number | null = null;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private cartService: CartService,
+    private motion: MotionService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -123,12 +131,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
       window.addEventListener('scroll', this.onScroll, { passive: true });
     }
     this.cartSub = this.cartService.items.subscribe(
-      () => this.cartCount = this.cartService.totalCount
+      () => { this.cartCount = this.cartService.totalCount; this.cdr.markForCheck(); }
     );
   }
 
   ngOnDestroy(): void {
-    if (this.observer) this.observer.disconnect();
+    this.observer?.disconnect();
+    this.mutationObserver?.disconnect();
     if (isPlatformBrowser(this.platformId)) {
       window.removeEventListener('scroll', this.onScroll);
       if (this.scrollFrame !== null) cancelAnimationFrame(this.scrollFrame);
@@ -144,10 +153,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private onScroll = (): void => {
     if (this.scrollFrame !== null) return;
-
     this.scrollFrame = requestAnimationFrame(() => {
       this.isScrolled = window.scrollY > 50;
       this.scrollFrame = null;
+      this.cdr.markForCheck();
     });
   }
 
@@ -158,37 +167,65 @@ export class NavbarComponent implements OnInit, OnDestroy {
       threshold: 0
     };
 
-    if (isPlatformBrowser(this.platformId)) {
-      this.observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.activeSection = entry.target.id;
-          }
-        });
-      }, options);
+    this.observer = new IntersectionObserver((entries) => {
+      // Pick the most-visible intersecting section deterministically
+      let best: string | null = null;
+      let bestRatio = 0;
+      for (const entry of entries) {
+        if (entry.isIntersecting && entry.intersectionRatio > bestRatio) {
+          best = entry.target.id;
+          bestRatio = entry.intersectionRatio;
+        }
+      }
+      if (best) {
+        this.activeSection = best;
+        this.cdr.markForCheck();
+      }
+    }, options);
 
-      // Sections to observe
-      ['hero', 'story', 'services', 'process', 'menu', 'reviews', 'delivery', 'shop'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) this.observer?.observe(el);
-      });
+    this.observeSections();
+
+    // Deferred sections render after `@defer (on idle)` triggers; watch for them
+    // and observe them as they materialize.
+    this.mutationObserver = new MutationObserver(() => this.observeSections());
+    this.mutationObserver.observe(document.body, { childList: true, subtree: true });
+  }
+
+  private observeSections(): void {
+    for (const id of this.sectionIds) {
+      if (this.observed.has(id)) continue;
+      const el = document.getElementById(id);
+      if (el) {
+        this.observed.add(id);
+        this.observer?.observe(el);
+      }
+    }
+    // All sections tracked — no need to keep watching the DOM.
+    if (this.observed.size === this.sectionIds.length && this.mutationObserver) {
+      this.mutationObserver.disconnect();
+      this.mutationObserver = null;
     }
   }
 
   scrollToSection(id: string): void {
-    if (isPlatformBrowser(this.platformId)) {
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        this.mobileMenuOpen = false;
-        this.activeSection = id;
-      }
-    }
+    this.mobileMenuOpen = false;
+    this.activeSection = id;
+    this.cdr.markForCheck();
+
+    if (this.motion.scrollToId(id)) return;
+
+    // The section may be deferred and not yet rendered — retry until it appears.
+    let attempts = 0;
+    const retry = () => {
+      if (this.motion.scrollToId(id)) return;
+      if (++attempts < 30) requestAnimationFrame(retry);
+    };
+    requestAnimationFrame(retry);
   }
 
   navLinkClass(section: string): string {
-    return this.activeSection === section 
-      ? 'text-dark-900 bg-primary-400 shadow-lg shadow-primary-400/20' 
+    return this.activeSection === section
+      ? 'text-dark-900 bg-primary-400 shadow-lg shadow-primary-400/20'
       : 'text-cream/80 hover:text-primary-400 hover:bg-dark-800/50';
   }
 

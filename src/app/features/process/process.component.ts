@@ -1,13 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CoffeeService } from '../../core/services/coffee.service';
 import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.model';
 
+interface OriginPoint extends CoffeeOrigin {
+  top: number;
+  left: number;
+}
+
 @Component({
   selector: 'app-process',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section id="process" class="mt-24 sm:mt-32 lg:mt-44 px-4 sm:px-6 reveal">
       <div class="text-center max-w-3xl mx-auto mb-20 lg:mb-28">
@@ -33,13 +39,13 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
                decoding="async"
                loading="lazy"
                class="w-full h-full object-cover opacity-20 grayscale">
-          
+
           <!-- Interactive Origin Points -->
-          <div *ngFor="let origin of origins" 
+          <div *ngFor="let origin of originPoints"
             (click)="selectOrigin(origin)"
             class="absolute w-4 h-4 rounded-full bg-primary-400 shadow-[0_0_20px_#d4a373] cursor-pointer hover:scale-125 transition-transform origin-center"
-            [style.top.%]="getOriginTop(origin)"
-            [style.left.%]="getOriginLeft(origin)">
+            [style.top.%]="origin.top"
+            [style.left.%]="origin.left">
             <div class="absolute -inset-2 rounded-full border border-primary-400 animate-ping opacity-50"></div>
           </div>
 
@@ -70,15 +76,16 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
               <span>Dark</span>
             </div>
             <div class="relative group/slider">
-              <input type="range" 
-                [(ngModel)]="selectedRoastLevel" 
-                (input)="onRoastChange()" 
-                min="0" max="3" step="1" 
+              <input type="range"
+                [(ngModel)]="selectedRoastLevel"
+                (input)="onRoastChange()"
+                (change)="onRoastEnd()"
+                min="0" max="3" step="1"
                 class="w-full cursor-pointer accent-primary-400 h-2 bg-dark-900 rounded-lg appearance-none transition-all duration-300">
-              
+
               <!-- Heat Glow Background -->
               <div class="absolute -inset-4 rounded-full opacity-20 blur-2xl z-[-1] transition-colors duration-700"
-                [style.backgroundColor]="getHeatColor()"></div>
+                [style.backgroundColor]="heatColor"></div>
             </div>
           </div>
 
@@ -96,17 +103,18 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
                sizes="(max-width: 1024px) 100vw, 50vw"
                decoding="async"
                loading="lazy"
-               class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out" 
+               class="absolute inset-0 w-full h-full object-cover"
+               [style.transition]="isDragging ? 'none' : 'filter 0.3s ease, transform 0.3s ease'"
                [style.filter]="currentRoast?.filter"
-               [style.transform]="getRoastTransform()">
+               [style.transform]="roastTransform">
           <div class="absolute inset-0 bg-dark-900/10 z-10 pointer-events-none"></div>
-          
+
           <!-- Roast Indicator Overlay -->
           <div class="absolute top-6 right-6 z-20 glass-effect px-4 py-2 rounded-lg border border-primary-400/30 animate-fadeIn">
             <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary-400 block">Temperature Profile</span>
             <div class="flex items-center gap-2 mt-1">
               <div class="h-1.5 w-16 bg-dark-800 rounded-full overflow-hidden">
-                <div class="h-full bg-primary-400 transition-all duration-1000" [style.width.%]="(selectedRoastLevel / 3) * 100"></div>
+                <div class="h-full bg-primary-400 transition-all duration-300" [style.width.%]="(selectedRoastLevel / 3) * 100"></div>
               </div>
               <span class="text-xs font-bold text-cream">{{ currentRoast?.title }}</span>
             </div>
@@ -125,7 +133,7 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
 
         <!-- Tabs -->
         <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-10">
-          <button *ngFor="let method of brewMethods" 
+          <button *ngFor="let method of brewMethods"
             (click)="selectBrewMethod(method.id)"
             [class.active]="selectedBrewMethod === method.id"
             class="brew-tab px-6 py-3 rounded-full border border-primary-400/30 font-bold uppercase tracking-widest text-sm transition-colors duration-300"
@@ -161,10 +169,16 @@ export class ProcessComponent implements OnInit {
   currentRoast: RoastLevel | undefined;
   currentBrewMethod: BrewMethod | undefined;
   brewMethods: BrewMethod[] = [];
-  origins: CoffeeOrigin[] = [];
+  originPoints: OriginPoint[] = [];
   coffeeImage = 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=70&w=800&auto=format&fit=crop';
 
-  constructor(private coffeeService: CoffeeService) {}
+  isDragging = false;
+  roastTransform = 'scale(1.05) rotate(-1deg)';
+  heatColor = '#fbbf24';
+
+  private readonly heatColors = ['#fde68a', '#fbbf24', '#d97706', '#92400e'];
+
+  constructor(private coffeeService: CoffeeService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.coffeeService.getBrewMethods().subscribe(methods => {
@@ -173,7 +187,11 @@ export class ProcessComponent implements OnInit {
     });
 
     this.coffeeService.getOrigins().subscribe(origins => {
-      this.origins = origins;
+      this.originPoints = origins.map(o => ({
+        ...o,
+        top: ((o.latitude + 90) / 180) * 100,
+        left: ((o.longitude + 180) / 360) * 100,
+      }));
       if (origins.length > 0) {
         this.selectOrigin(origins[0]);
       }
@@ -185,18 +203,18 @@ export class ProcessComponent implements OnInit {
   onRoastChange(): void {
     const id = Number(this.selectedRoastLevel);
     this.currentRoast = this.coffeeService.getRoastById(id);
-  }
-
-  getHeatColor(): string {
-    const colors = ['#fde68a', '#fbbf24', '#d97706', '#92400e'];
-    return colors[this.selectedRoastLevel] || colors[1];
-  }
-
-  getRoastTransform(): string {
+    this.heatColor = this.heatColors[id] ?? this.heatColors[1];
     // Subtle scale and rotation shift as roast changes
-    const scale = 1 + (this.selectedRoastLevel * 0.05);
-    const rotate = (this.selectedRoastLevel - 1.5) * 2;
-    return `scale(${scale}) rotate(${rotate}deg)`;
+    const scale = 1 + (id * 0.05);
+    const rotate = (id - 1.5) * 2;
+    this.roastTransform = `scale(${scale}) rotate(${rotate}deg)`;
+    this.isDragging = true;
+    this.cdr.markForCheck();
+  }
+
+  onRoastEnd(): void {
+    this.isDragging = false;
+    this.cdr.markForCheck();
   }
 
   selectBrewMethod(methodId: string): void {
@@ -207,15 +225,5 @@ export class ProcessComponent implements OnInit {
   selectOrigin(origin: CoffeeOrigin): void {
     this.selectedOrigin = origin;
     this.coffeeService.setSelectedOrigin(origin);
-  }
-
-  getOriginTop(origin: CoffeeOrigin): number {
-    // Map latitude (-90 to 90) to percentage (0 to 100)
-    return ((origin.latitude + 90) / 180) * 100;
-  }
-
-  getOriginLeft(origin: CoffeeOrigin): number {
-    // Map longitude (-180 to 180) to percentage (0 to 100)
-    return ((origin.longitude + 180) / 360) * 100;
   }
 }
