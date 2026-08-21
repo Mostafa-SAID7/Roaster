@@ -52,6 +52,9 @@
   html {
     @apply bg-transparent;
     scroll-behavior: smooth;
+    scroll-padding-top: 120px;
+    overscroll-behavior-x: none;
+    scrollbar-gutter: stable;
   }
 
   section {
@@ -300,7 +303,7 @@ input[type=range]::-moz-range-track {
   animation: svgVibrate 1.2s ease-in-out infinite;
 }
 
-@media (prefers-reduced-motion: reduce), (max-width: 640px) {
+@media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
@@ -314,5 +317,33 @@ input[type=range]::-moz-range-track {
 
   .glass-effect {
     backdrop-filter: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .backdrop-blur-xl,
+  .backdrop-blur-md,
+  .backdrop-blur-sm {
+    backdrop-filter: none;
+  }
+}
+
+@layer utilities {
+  .transition-all {
+    transition-property: color, background-color, border-color, opacity, transform, box-shadow, filter;
+  }
+
+  .transition-transform {
+    transition-property: transform;
+  }
+
+  .animate-imageSlowZoom,
+  .animate-subtleGlow,
+  .animate-svgFloat,
+  .animate-svgSway,
+  .animate-svgFlicker,
+  .animate-svgPulse,
+  .animate-svgVibrate {
+    will-change: transform, opacity;
   }
 }

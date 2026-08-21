@@ -71,27 +71,27 @@ import { CartService } from './core/services/cart.service';
      <app-navbar></app-navbar>
     <div class="relative z-10 max-w-[1600px] mx-auto p-2 sm:p-4 lg:p-6 overflow-hidden">
       <app-hero></app-hero>
-      @defer (on viewport) {
+      @defer (on idle) {
         <app-story></app-story>
       } @placeholder {
         <div class="section-placeholder"></div>
       }
-      @defer (on viewport) {
+      @defer (on idle) {
         <app-services></app-services>
       } @placeholder {
         <div class="section-placeholder"></div>
       }
-      @defer (on viewport) {
+      @defer (on idle) {
         <app-process></app-process>
       } @placeholder {
         <div class="section-placeholder"></div>
       }
-      @defer (on viewport) {
+      @defer (on idle) {
         <app-menu></app-menu>
       } @placeholder {
         <div class="section-placeholder"></div>
       }
-      @defer (on viewport) {
+      @defer (on idle) {
         <app-testimonials></app-testimonials>
       } @placeholder {
         <div class="section-placeholder"></div>
