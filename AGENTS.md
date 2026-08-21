@@ -12,6 +12,12 @@ Pure frontend Angular 18 app (Island Roaster coffee marketing site). No backend,
 - Angular 18's esbuild-based dev server does not support `--disable-host-check`; it accepts all hosts by default when bound to `0.0.0.0`, so the preview's external hostname works without extra config.
 - The served HTML includes `/@vite/client` — this confirms it is the live dev server (not a prebuilt bundle).
 
+## Auto-Sync (GitHub → Preview)
+- A `git-sync` sidecar service (defined in `docker-compose.base44.yml`, script at `scripts/git-sync.sh`) polls `origin/main` every 20s for new commits.
+- When you push to `main`, the watcher fetches and merges those commits into the running working branch. The Angular dev server's HMR then reflects the changes in the preview automatically.
+- If a merge conflict occurs, the watcher aborts the merge and skips that cycle — push again or resolve manually.
+- To change the watched branch, set `SYNC_BRANCH` in the compose environment (default: `main`).
+
 ## Verification
 - `curl -sf -H "Host: external-preview.example.com" http://localhost:3000/` returns 200 with the app's HTML.
 - `docker compose -f docker-compose.base44.yml logs web` shows "Watch mode enabled" and the Local/Network URLs.

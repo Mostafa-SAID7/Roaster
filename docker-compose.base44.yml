@@ -19,5 +19,18 @@ services:
       retries: 20
       start_period: 120s
 
+  # Auto-pulls new commits from origin/main so the preview stays in sync
+  # with pushes to your GitHub repository. HMR reflects changes live.
+  git-sync:
+    image: node:22
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      - SYNC_BRANCH=main
+      - SYNC_INTERVAL=20
+    command: ["sh", "scripts/git-sync.sh"]
+    restart: unless-stopped
+
 volumes:
   node_modules:
