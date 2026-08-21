@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-background',
   standalone: true,
-  imports: [CommonModule],
   template: `
-    <!-- Static base background -->
-    <div class="fixed inset-0 w-full h-full -z-10 bg-dark-900"></div>
-
-    <!-- Cinematic Vignette Overlay -->
-    <div class="fixed inset-0 w-full h-full -z-5 pointer-events-none bg-gradient-to-b from-dark-900/10 via-transparent to-dark-900/60"></div>
+    <div class="site-backdrop fixed inset-0 -z-10 h-full w-full"></div>
+    <div class="pointer-events-none fixed inset-0 -z-10 h-full w-full bg-[radial-gradient(circle_at_80%_20%,rgba(53,104,121,0.06),transparent_26%)]"></div>
   `,
 })
 export class BackgroundComponent {}
