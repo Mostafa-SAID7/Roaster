@@ -1,6 +1,6 @@
-# Contributing to Island Roaster
+# Contributing to MERZY
 
-Thank you for your interest in contributing to Island Roaster! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to MERZY! This document provides guidelines and instructions for contributing.
 
 ## Code of Conduct
 
@@ -17,8 +17,8 @@ Be respectful, inclusive, and professional in all interactions.
 
 1. **Fork the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/Roaster.git
-   cd Roaster/island-roaster
+   git clone https://github.com/YOUR_USERNAME/merzy.git
+   cd merzy
    ```
 
 2. **Install dependencies**
@@ -111,7 +111,7 @@ feat: add origin selection map to process component
 ## Project Structure
 
 ```
-island-roaster/
+merzy/
 ├── src/
 │   ├── app/
 │   │   ├── core/          # Services & models
@@ -203,4 +203,4 @@ By contributing, you agree that your contributions will be licensed under the sa
 
 ---
 
-Thank you for contributing to Island Roaster! ☕
+Thank you for contributing to MERZY!

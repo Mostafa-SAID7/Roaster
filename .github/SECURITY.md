@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in Island Roaster, please email security@islandroaster.mv instead of using the issue tracker.
+If you discover a security vulnerability in MERZY, please report it privately to the repository maintainers instead of using the issue tracker.
 
 Please include:
 - Description of the vulnerability
@@ -99,9 +99,9 @@ Content-Security-Policy: default-src 'self'
 
 ## Contact
 
-- Security Email: security@islandroaster.mv
-- GitHub: https://github.com/Mostafa-SAID7/Roaster
+- Security contact: Use the repository's private reporting channel
+- Repository: Use the project URL shown in the repository settings
 
 ---
 
-Thank you for helping keep Island Roaster secure! ☕
+Thank you for helping keep MERZY secure.

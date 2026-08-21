@@ -31,35 +31,17 @@ import { OrderTrackingComponent } from './features/order-tracking/order-tracking
   template: `
     <app-background></app-background>
     <app-navbar></app-navbar>
-    <main class="relative z-10 max-w-[1600px] mx-auto p-2 sm:p-4 lg:p-6 overflow-hidden">
+    <main class="site-main relative z-10 max-w-[1440px] mx-auto px-4 pb-4 sm:px-6 lg:px-10 lg:pb-10">
       <app-hero></app-hero>
-      @defer (on idle) {
-        <app-story></app-story>
-      } @placeholder {
-        <div class="section-placeholder ph-story"></div>
-      }
-      @defer (on idle) {
-        <app-services></app-services>
-      } @placeholder {
-        <div class="section-placeholder ph-services"></div>
-      }
-      @defer (on idle) {
-        <app-process></app-process>
-      } @placeholder {
-        <div class="section-placeholder ph-process"></div>
-      }
-      @defer (on idle) {
-        <app-menu></app-menu>
-      } @placeholder {
-        <div class="section-placeholder ph-menu"></div>
-      }
-      @defer (on idle) {
-        <app-testimonials></app-testimonials>
-      } @placeholder {
-        <div class="section-placeholder ph-testimonials"></div>
-      }
+      <app-story></app-story>
+      <app-services></app-services>
+      <app-process></app-process>
+      <app-menu></app-menu>
+      <app-testimonials></app-testimonials>
     </main>
     <app-footer></app-footer>
+    <app-cart></app-cart>
+    <app-order-tracking></app-order-tracking>
   `,
 })
 export class AppComponent implements OnInit {
