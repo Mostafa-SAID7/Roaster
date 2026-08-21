@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, HostListener, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface SelectorOption {
@@ -10,6 +10,7 @@ export interface SelectorOption {
   selector: 'app-selector',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="relative z-[230] w-full">
       <button type="button" (click)="toggleDropdown($event)" (keydown)="onTriggerKeydown($event)" [attr.aria-expanded]="isOpen" aria-haspopup="listbox" [ngClass]="{'border-primary-400': isOpen, 'shadow-lg': isOpen, 'shadow-primary-400/20': isOpen}" class="w-full h-14 px-5 bg-gradient-to-r from-dark-800 to-dark-900 border border-primary-400/40 rounded-xl text-cream font-bold uppercase tracking-widest text-sm flex items-center justify-between hover:border-primary-400/70 transition-all duration-300 hover:shadow-lg hover:shadow-primary-400/10 focus:outline-none focus:border-primary-400 focus:shadow-lg focus:shadow-primary-400/20">
@@ -32,7 +33,7 @@ export interface SelectorOption {
     </div>
   `,
 })
-export class SelectorComponent implements OnInit, OnDestroy {
+export class SelectorComponent {
   @Input() options: SelectorOption[] = [];
   @Input() placeholder: string = 'Select Island...';
   @Input() selectedValue: string = '';
@@ -41,27 +42,23 @@ export class SelectorComponent implements OnInit, OnDestroy {
   isOpen = false;
   private clickListener: ((event: MouseEvent) => void) | null = null;
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   get selectedLabel(): string {
     return this.options.find(opt => opt.value === this.selectedValue)?.label || '';
-  }
-
-  ngOnInit(): void {
-    this.setupClickOutsideListener();
-  }
-
-  ngOnDestroy(): void {
-    this.removeClickOutsideListener();
   }
 
   toggleDropdown(event?: Event): void {
     event?.stopPropagation();
     this.isOpen = !this.isOpen;
+    this.isOpen ? this.addOutsideListener() : this.removeOutsideListener();
   }
 
   onTriggerKeydown(event: KeyboardEvent): void {
     if (event.key === 'ArrowDown' || event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       this.isOpen = true;
+      this.addOutsideListener();
     } else if (event.key === 'Escape') {
       this.closeDropdown();
     }
@@ -79,15 +76,20 @@ export class SelectorComponent implements OnInit, OnDestroy {
 
   closeDropdown(): void {
     this.isOpen = false;
+    this.removeOutsideListener();
+    this.cdr.markForCheck();
   }
 
   selectOption(option: SelectorOption): void {
     this.selectedValue = option.value;
     this.selectionChange.emit(option.value);
     this.isOpen = false;
+    this.removeOutsideListener();
   }
 
-  private setupClickOutsideListener(): void {
+  /** Only listen for outside clicks while the dropdown is open. */
+  private addOutsideListener(): void {
+    if (this.clickListener) return;
     this.clickListener = (event: MouseEvent) => {
       const target = event.target;
       if (target instanceof Element && !target.closest('app-selector')) {
@@ -97,9 +99,10 @@ export class SelectorComponent implements OnInit, OnDestroy {
     document.addEventListener('click', this.clickListener);
   }
 
-  private removeClickOutsideListener(): void {
+  private removeOutsideListener(): void {
     if (this.clickListener) {
       document.removeEventListener('click', this.clickListener);
+      this.clickListener = null;
     }
   }
 }
