@@ -71,11 +71,31 @@ import { CartService } from './core/services/cart.service';
      <app-navbar></app-navbar>
     <div class="relative z-10 max-w-[1600px] mx-auto p-2 sm:p-4 lg:p-6 overflow-hidden">
       <app-hero></app-hero>
-      <app-story></app-story>
-      <app-services></app-services>
-      <app-process></app-process>
-      <app-menu></app-menu>
-      <app-testimonials></app-testimonials>
+      @defer (on viewport) {
+        <app-story></app-story>
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on viewport) {
+        <app-services></app-services>
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on viewport) {
+        <app-process></app-process>
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on viewport) {
+        <app-menu></app-menu>
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
+      @defer (on viewport) {
+        <app-testimonials></app-testimonials>
+      } @placeholder {
+        <div class="section-placeholder"></div>
+      }
     </div>
     <app-footer></app-footer>
   `,
@@ -95,7 +115,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.setupSEO();
-    this.setupScrollReveal();
     this.subs.push(
       this.cartService.items.subscribe(() => this.cartCount = this.cartService.totalCount),
       this.cartService.isOpen.subscribe(open => this.cartOpen = open),
@@ -133,18 +152,4 @@ export class AppComponent implements OnInit, OnDestroy {
     link.setAttribute('href', url);
   }
 
-  private setupScrollReveal(): void {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { root: null, rootMargin: '0px', threshold: 0.1 });
-
-    setTimeout(() => {
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    }, 500);
-  }
 }

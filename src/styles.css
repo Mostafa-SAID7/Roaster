@@ -67,10 +67,6 @@
     @apply transition-colors duration-300;
   }
 
-  img {
-    will-change: transform;
-    backface-visibility: hidden;
-  }
 }
 
 /* Component Styles */
@@ -92,11 +88,12 @@
   }
 
   .reveal {
-    @apply opacity-0 transform translate-y-10 transition-all duration-1000;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
   }
 
-  .reveal.active {
-    @apply opacity-100 translate-y-0;
+  .section-placeholder {
+    min-height: 800px;
   }
 
   .no-scrollbar {
@@ -300,5 +297,22 @@ input[type=range]::-moz-range-track {
 }
 
 .animate-svgVibrate {
-  animation: svgVibrate 0.2s linear infinite;
+  animation: svgVibrate 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce), (max-width: 640px) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .animate-imageSlowZoom {
+    transform: scale(1.03);
+  }
+
+  .glass-effect {
+    backdrop-filter: none;
+  }
 }

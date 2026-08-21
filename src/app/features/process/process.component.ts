@@ -26,8 +26,11 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
           Origin Selection
         </h3>
         <div class="relative w-full h-[300px] sm:h-[400px] bg-dark-900 rounded-2xl border border-dark-800 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop" 
-               alt="World Map Abstract" 
+          <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=60&w=960&auto=format&fit=crop"
+               alt="World Map Abstract"
+               width="960" height="400"
+               sizes="(max-width: 1024px) 100vw, 960px"
+               decoding="async"
                loading="lazy"
                class="w-full h-full object-cover opacity-20 grayscale">
           
@@ -87,8 +90,11 @@ import { RoastLevel, BrewMethod, CoffeeOrigin } from '../../core/models/coffee.m
         </div>
 
         <div class="relative h-[400px] rounded-2xl overflow-hidden bg-dark-900 flex items-center justify-center border border-dark-800 shadow-inner group">
-          <img [src]="coffeeImage" 
-               alt="Roasted Coffee Beans" 
+          <img [src]="coffeeImage"
+               alt="Roasted Coffee Beans"
+               width="1000" height="800"
+               sizes="(max-width: 1024px) 100vw, 50vw"
+               decoding="async"
                loading="lazy"
                class="absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out" 
                [style.filter]="currentRoast?.filter"
@@ -156,7 +162,7 @@ export class ProcessComponent implements OnInit {
   currentBrewMethod: BrewMethod | undefined;
   brewMethods: BrewMethod[] = [];
   origins: CoffeeOrigin[] = [];
-  coffeeImage = 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=1000&auto=format&fit=crop';
+  coffeeImage = 'https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=70&w=800&auto=format&fit=crop';
 
   constructor(private coffeeService: CoffeeService) {}
 

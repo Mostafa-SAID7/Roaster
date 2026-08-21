@@ -34,10 +34,13 @@ import { CommonModule } from '@angular/common';
             <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[3rem] lg:rounded-[4rem] z-20 pointer-events-none"></div>
             
             <!-- Focus Zoom Image -->
-            <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=80&w=1200&auto=format&fit=crop" 
-                 alt="Premium Roaster Coffee Packaging" 
+            <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?q=75&w=960&auto=format&fit=crop"
+                 alt="Premium Roaster Coffee Packaging"
+                 width="960" height="900"
+                 sizes="(max-width: 1023px) 100vw, 50vw"
+                 decoding="async"
                  fetchpriority="high"
-                 class="absolute inset-0 w-full h-full object-cover transform animate-imageSlowZoom group-hover:scale-125 transition-transform duration-[2000ms] ease-out">
+                 class="absolute inset-0 w-full h-full object-cover transform animate-imageSlowZoom group-hover:scale-110 transition-transform duration-[2000ms] ease-out">
             
             <!-- Floating Accent -->
             <div class="absolute bottom-10 left-10 z-20 hidden sm:block animate-fadeIn delay-500">
